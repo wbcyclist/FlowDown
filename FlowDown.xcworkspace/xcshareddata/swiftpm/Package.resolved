@@ -226,6 +226,15 @@
       }
     },
     {
+      "identity" : "sqlcipher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Tencent/sqlcipher",
+      "state" : {
+        "revision" : "5d8825c22feedb421ad6f9ecfc1399460e10d299",
+        "version" : "1.4.7"
+      }
+    },
+    {
       "identity" : "swift-atomics",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-atomics.git",
@@ -343,11 +352,11 @@
       }
     },
     {
-      "identity" : "wcdb-spm-prebuild",
+      "identity" : "wcdb",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/0x1306a94/wcdb-spm-prebuild",
+      "location" : "https://github.com/Tencent/wcdb",
       "state" : {
-        "revision" : "541b7f3b937d91e3a8b520194c6437446c4655a3",
+        "revision" : "99b2cec68d7c9634e08d28ba3a7d54583cd4d303",
         "version" : "2.1.14"
       }
     },
