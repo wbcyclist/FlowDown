@@ -29,13 +29,14 @@ class ChatSelection {
             let initialConversation = ConversationManager.shared.createNewConversation(autoSelect: false)
             subject.send(initialConversation.id)
         }
-        
+
         // Listen for conversation list changes and auto-create conversation if list becomes empty
         ConversationManager.shared.conversations
             .receive(on: DispatchQueue.main)
             .sink { [weak self] conversationDict in
                 if conversationDict.isEmpty, let currentSelection = self?.subject.value {
                     // Current selection is invalid (conversation was deleted), create a new one
+                    _ = currentSelection
                     Logger.ui.infoFile("No conversations left, auto-creating a new conversation")
                     let newConversation = ConversationManager.shared.createNewConversation(autoSelect: false)
                     self?.subject.send(newConversation.id)

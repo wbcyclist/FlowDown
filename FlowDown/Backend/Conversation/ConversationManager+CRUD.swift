@@ -92,9 +92,9 @@ extension ConversationManager {
         }
 
         session.prepareSystemPrompt()
-        
+
         if autoSelect { ChatSelection.shared.select(object.id) }
-        
+
         return object
     }
 
