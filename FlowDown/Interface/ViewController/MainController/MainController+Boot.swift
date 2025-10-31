@@ -42,9 +42,8 @@ extension MainController {
 
     func queueNewConversation(text: String, shouldSend: Bool = false) {
         DispatchQueue.main.async {
-            let conversation = ConversationManager.shared.createNewConversation()
+            let conversation = ConversationManager.shared.createNewConversation(autoSelect: true)
             Logger.app.infoFile("created new conversation ID: \(conversation.id)")
-            self.load(conversation.id)
             guard shouldSend else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 if self.chatView.conversationIdentifier == conversation.id {
