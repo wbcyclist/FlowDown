@@ -164,6 +164,42 @@ class CloudModelEditorController: StackScrollController {
         stackView.addArrangedSubviewWithMargin(tokenView)
         stackView.addArrangedSubview(SeparatorView())
 
+        let modelIdentifierView = ConfigurableInfoView()
+        modelIdentifierView.configure(icon: .init(systemName: "circle"))
+        modelIdentifierView.configure(title: "Model Identifier")
+        modelIdentifierView.configure(description: "The name of the model to be used.")
+        var modelIdentifier = model?.model_identifier ?? ""
+        if modelIdentifier.isEmpty {
+            modelIdentifier = String(localized: "Not Configured")
+        }
+        modelIdentifierView.configure(value: modelIdentifier)
+
+        modelIdentifierView.use { [weak self] in
+            guard let self else { return [] }
+            return buildModelIdentifierMenu(for: identifier, view: modelIdentifierView)
+        }
+        stackView.addArrangedSubviewWithMargin(modelIdentifierView)
+        stackView.addArrangedSubview(SeparatorView())
+
+        stackView.addArrangedSubviewWithMargin(
+            ConfigurableSectionFooterView()
+                .with(footer: "The endpoint needs to be written in full path to work. The path is usually /v1/chat/completions.")
+        ) {
+            $0.top /= 2
+            $0.bottom = 0
+        }
+        stackView.addArrangedSubviewWithMargin(
+            ConfigurableSectionFooterView()
+                .with(footer: "After setting up, click the model identifier to edit it or retrieve a list from the server.")
+        ) { $0.top /= 2 }
+        stackView.addArrangedSubview(SeparatorView())
+
+        stackView.addArrangedSubviewWithMargin(
+            ConfigurableSectionHeaderView()
+                .with(header: "Networking")
+        ) { $0.bottom /= 2 }
+        stackView.addArrangedSubview(SeparatorView())
+
         // additional header
         let headerEditorView = ConfigurableInfoView().setTapBlock { view in
             guard let model = ModelManager.shared.cloudModel(identifier: model?.id) else { return }
@@ -223,33 +259,9 @@ class CloudModelEditorController: StackScrollController {
         stackView.addArrangedSubviewWithMargin(bodyFieldsEditorView)
         stackView.addArrangedSubview(SeparatorView())
 
-        let modelIdentifierView = ConfigurableInfoView()
-        modelIdentifierView.configure(icon: .init(systemName: "circle"))
-        modelIdentifierView.configure(title: "Model Identifier")
-        modelIdentifierView.configure(description: "The name of the model to be used.")
-        var modelIdentifier = model?.model_identifier ?? ""
-        if modelIdentifier.isEmpty {
-            modelIdentifier = String(localized: "Not Configured")
-        }
-        modelIdentifierView.configure(value: modelIdentifier)
-
-        modelIdentifierView.use { [weak self] in
-            guard let self else { return [] }
-            return buildModelIdentifierMenu(for: identifier, view: modelIdentifierView)
-        }
-        stackView.addArrangedSubviewWithMargin(modelIdentifierView)
-        stackView.addArrangedSubview(SeparatorView())
-
         stackView.addArrangedSubviewWithMargin(
             ConfigurableSectionFooterView()
-                .with(footer: "The endpoint needs to be written in full path to work. The path is usually /v1/chat/completions.")
-        ) {
-            $0.top /= 2
-            $0.bottom = 0
-        }
-        stackView.addArrangedSubviewWithMargin(
-            ConfigurableSectionFooterView()
-                .with(footer: "After setting up, click the model identifier to edit it or retrieve a list from the server.")
+                .with(footer: "Extra headers and body fields are optional, and can be used to add extra information to the request. They should be in JSON format with key-value pairs.")
         ) { $0.top /= 2 }
         stackView.addArrangedSubview(SeparatorView())
 

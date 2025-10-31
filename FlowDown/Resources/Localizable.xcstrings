@@ -2335,23 +2335,6 @@
         }
       }
     },
-    "Copy Link" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Copy Link"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "复制链接"
-          }
-        }
-      }
-    },
     "Copy Message" : {
       "localizations" : {
         "en" : {
@@ -4641,6 +4624,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "外部资源"
+          }
+        }
+      }
+    },
+    "Extra headers and body fields are optional, and can be used to add extra information to the request. They should be in JSON format with key-value pairs." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "额外的请求头和请求体字段是可选的，可用于向请求中添加额外信息。这些字段应采用包含键值对的JSON格式。"
           }
         }
       }
@@ -7588,6 +7581,16 @@
             "value" : "Network"
           }
         },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网络"
+          }
+        }
+      }
+    },
+    "Networking" : {
+      "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
