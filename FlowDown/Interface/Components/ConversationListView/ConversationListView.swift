@@ -62,42 +62,40 @@ class ConversationListView: UIView {
         tableView.sectionHeaderTopPadding = 0
         tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-        ChatSelection.shared.selection
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] identifier in
-                guard let self else { return }
-                Logger.ui.debugFile("ConversationListView received global selection: \(identifier ?? "nil")")
-                if tableView.indexPathsForSelectedRows?.count ?? 0 == 1,
-                   let selection = tableView.indexPathForSelectedRow,
-                   let selectedIdentifier = dataSource.itemIdentifier(for: selection),
-                   selectedIdentifier == identifier
-                {
-                    return
-                }
-
-                let selectedIndexPath = Set(tableView.indexPathsForSelectedRows ?? [])
-                for index in selectedIndexPath {
-                    tableView.deselectRow(at: index, animated: false)
-                }
-                if let identifier,
-                   let indexPath = dataSource.indexPath(for: identifier)
-                {
-                    let visible = tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false
-                    tableView.selectRow(
-                        at: indexPath,
-                        animated: false,
-                        scrollPosition: visible ? .none : .middle
-                    )
-                }
+        Publishers.CombineLatest(
+            ConversationManager.shared.conversations,
+            ChatSelection.shared.selection
+        )
+        .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main)
+        .ensureMainThread()
+        .sink { [weak self] _, identifier in
+            guard let self else { return }
+            updateDataSource()
+            Logger.ui.debugFile("ConversationListView received global selection: \(identifier ?? "nil")")
+            let selectedIndexPath = Set(tableView.indexPathsForSelectedRows ?? [])
+            for index in selectedIndexPath {
+                tableView.deselectRow(at: index, animated: false)
             }
-            .store(in: &cancellables)
-
-        ConversationManager.shared.conversations
-            .ensureMainThread()
-            .sink { [weak self] _ in
-                self?.updateDataSource()
+            if let identifier,
+               let indexPath = dataSource.indexPath(for: identifier)
+            {
+                let visible = tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false
+                tableView.selectRow(
+                    at: indexPath,
+                    animated: false,
+                    scrollPosition: visible ? .none : .middle
+                )
+            } else {
+                let indexPath = IndexPath(row: 0, section: 0)
+                let visible = tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false
+                tableView.selectRow(
+                    at: indexPath,
+                    animated: false,
+                    scrollPosition: visible ? .none : .middle
+                )
             }
-            .store(in: &cancellables)
+        }
+        .store(in: &cancellables)
     }
 
     @available(*, unavailable)
@@ -156,17 +154,6 @@ class ConversationListView: UIView {
                 .compactMap(\.self)
             snapshot.reconfigureItems(visibleItemIdentifiers)
             dataSource.apply(snapshot, animatingDifferences: true)
-        }
-    }
-
-    func select(identifier: Conversation.ID) {
-        Logger.ui.debugFile("ConversationListView.select called with identifier: \(identifier)")
-        if Thread.isMainThread {
-            var snapshot = dataSource.snapshot()
-            snapshot.reconfigureItems([identifier])
-            dataSource.apply(snapshot, animatingDifferences: true)
-        } else {
-            assertionFailure()
         }
     }
 

@@ -22,8 +22,6 @@ class Sidebar: UIView {
     init() {
         super.init(frame: .zero)
 
-        setupChatSelectionSubscription()
-
         let spacing: CGFloat = 16
 
         addSubview(brandingLabel)
@@ -68,18 +66,6 @@ class Sidebar: UIView {
             make.right.equalTo(searchButton.snp.left).offset(-8)
             make.height.equalTo(32)
         }
-    }
-
-    private func setupChatSelectionSubscription() {
-        ChatSelection.shared.selection
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] conversationId in
-                Logger.ui.debugFile("Sidebar received chat selection update: \(conversationId ?? "nil")")
-                if let conversationId {
-                    self?.conversationListView.select(identifier: conversationId)
-                }
-            }
-            .store(in: &cancellables)
     }
 
     @available(*, unavailable)
