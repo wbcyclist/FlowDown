@@ -13,31 +13,19 @@ import UIKit
 class CodeEditorController: UIViewController {
     let textView = RunestoneEditorView.new()
 
-    let indicator = UIActivityIndicatorView()
     private lazy var doneBarButtonItem: UIBarButtonItem = .init(
         barButtonSystemItem: .done,
         target: self,
         action: #selector(done)
     )
-    private lazy var spinnerBarButtonItem: UIBarButtonItem = .init(customView: indicator)
     private lazy var cancelBarButtonItem: UIBarButtonItem = .init(
         barButtonSystemItem: .cancel,
         target: self,
         action: #selector(dispose)
     )
 
-    private func updateRightBarButtonItems() {
-        if indicator.isAnimating {
-            navigationItem.rightBarButtonItems = [doneBarButtonItem, spinnerBarButtonItem]
-        } else {
-            navigationItem.rightBarButtonItems = [doneBarButtonItem]
-        }
-    }
-
     init(language: String? = nil, text: String) {
         super.init(nibName: nil, bundle: nil)
-
-        indicator.startAnimating()
 
         textView.clipsToBounds = true
         textView.alwaysBounceVertical = true
@@ -45,21 +33,14 @@ class CodeEditorController: UIViewController {
         textView.text = text
         textView.apply(theme: TomorrowTheme())
 
+        navigationItem.rightBarButtonItems = [doneBarButtonItem]
+
         if let language,
            let languageObject = TreeSitterLanguage.language(withIdentifier: language)
         {
-            textView.applyAsync(language: languageObject, text: text) { [weak self] in
-                self?.indicator.stopAnimating()
-                self?.updateRightBarButtonItems()
-            }
+            textView.applyAsync(language: languageObject, text: text) {}
         } else if let languageObject = TreeSitterLanguage.language(withIdentifier: "markdown") {
-            textView.applyAsync(language: languageObject, text: text) { [weak self] in
-                self?.indicator.stopAnimating()
-                self?.updateRightBarButtonItems()
-            }
-        } else {
-            indicator.stopAnimating()
-            updateRightBarButtonItems()
+            textView.applyAsync(language: languageObject, text: text) {}
         }
     }
 
@@ -80,8 +61,6 @@ class CodeEditorController: UIViewController {
             make.edges.equalToSuperview()
         }
         textView.textContainerInset.bottom = 400
-
-        updateRightBarButtonItems()
     }
 
     @objc func done() {
