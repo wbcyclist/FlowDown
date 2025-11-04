@@ -34,7 +34,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "(Reasoning) %@"
+            "value" : "（推理中）%@"
           }
         }
       }
@@ -1098,7 +1098,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ask Model"
+            "value" : "询问模型"
           }
         }
       }
@@ -1114,7 +1114,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ask Model + Image"
+            "value" : "询问模型 + 图像"
           }
         }
       }
@@ -1130,7 +1130,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ask Model + Image + Tools"
+            "value" : "询问模型 + 图像 + 工具"
           }
         }
       }
@@ -1146,7 +1146,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ask Model + Tools"
+            "value" : "询问模型 + 工具"
           }
         }
       }
@@ -1162,7 +1162,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Assistant"
+            "value" : "助手"
           }
         }
       }
@@ -1371,7 +1371,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Built-in Tool"
+            "value" : "内置工具"
           }
         }
       }
@@ -1851,7 +1851,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cloud"
+            "value" : "云端"
           }
         }
       }
@@ -2284,7 +2284,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Content"
+            "value" : "内容"
           }
         }
       }
@@ -2637,7 +2637,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create conversation"
+            "value" : "创建对话"
           }
         }
       }
@@ -2653,7 +2653,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create Conversation"
+            "value" : "创建对话"
           }
         }
       }
@@ -3437,7 +3437,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disable all FlowDown tools"
+            "value" : "禁用所有 FlowDown 工具"
           }
         }
       }
@@ -3453,7 +3453,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disable All Tools"
+            "value" : "禁用所有工具"
           }
         }
       }
@@ -3501,7 +3501,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Disabled built-in tools: %1$lld. Skipped: %2$lld. MCP servers disabled: %3$lld of %4$lld."
+            "value" : "已禁用内置工具：%1$lld 个。跳过：%2$lld 个。已禁用 MCP 服务器：%3$lld / %4$lld。"
           }
         }
       }
@@ -4208,7 +4208,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enable ${tool}"
+            "value" : "启用 ${tool}"
           }
         }
       }
@@ -4224,7 +4224,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enable a specific FlowDown tool or MCP server."
+            "value" : "启用特定的 FlowDown 工具或 MCP 服务器。"
           }
         }
       }
@@ -4240,7 +4240,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enable all FlowDown tools"
+            "value" : "启用所有 FlowDown 工具"
           }
         }
       }
@@ -4256,7 +4256,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enable All Tools"
+            "value" : "启用所有工具"
           }
         }
       }
@@ -4272,7 +4272,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enable every built-in tool and all MCP servers."
+            "value" : "启用所有内置工具和所有 MCP 服务器。"
           }
         }
       }
@@ -4353,7 +4353,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enable Tool"
+            "value" : "启用工具"
           }
         }
       }
@@ -4385,7 +4385,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enabled built-in tools: %1$lld. Skipped: %2$lld. MCP servers enabled: %3$lld of %4$lld."
+            "value" : "已启用内置工具：%1$lld 个。跳过：%2$lld 个。已启用 MCP 服务器：%3$lld / %4$lld。"
           }
         }
       }
@@ -4401,7 +4401,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enabled MCP server: %@"
+            "value" : "已启用 MCP 服务器：%@"
           }
         }
       }
@@ -4417,7 +4417,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enabled tool: %@"
+            "value" : "已启用工具：%@"
           }
         }
       }
@@ -5315,7 +5315,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Failed to launch FlowDown."
+            "value" : "无法启动 FlowDown。"
           }
         }
       }
@@ -5491,7 +5491,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fetch Last Conversation"
+            "value" : "获取最近的对话"
           }
         }
       }
@@ -5507,7 +5507,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fetch latest conversation details"
+            "value" : "获取最新对话详情"
           }
         }
       }
@@ -5669,7 +5669,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FlowDown launched to start a new conversation."
+            "value" : "已启动 FlowDown 以开始新对话。"
           }
         }
       }
@@ -5685,7 +5685,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FlowDown launched with your message."
+            "value" : "已启动 FlowDown 并发送您的消息。"
           }
         }
       }
@@ -6236,7 +6236,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Image"
+            "value" : "图像"
           }
         }
       }
@@ -6508,7 +6508,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Improve Writing - Concise"
+            "value" : "改进写作 - 简洁"
           }
         }
       }
@@ -6524,7 +6524,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Improve Writing - Friendly"
+            "value" : "改进写作 - 友好"
           }
         }
       }
@@ -6540,7 +6540,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Improve Writing - Professional"
+            "value" : "改进写作 - 专业"
           }
         }
       }
@@ -6685,7 +6685,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Initial Message"
+            "value" : "初始消息"
           }
         }
       }
@@ -7134,7 +7134,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Local"
+            "value" : "本地"
           }
         }
       }
@@ -8383,7 +8383,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No conversations were found."
+            "value" : "未找到任何对话。"
           }
         }
       }
@@ -8736,7 +8736,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open FlowDown and optionally start a conversation with a message."
+            "value" : "打开 FlowDown，可选择使用消息开始对话。"
           }
         }
       }
@@ -8928,7 +8928,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Original Text:"
+            "value" : "原文："
           }
         }
       }
@@ -9588,7 +9588,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quick Reply with Image"
+            "value" : "快速回复（带图像）"
           }
         }
       }
@@ -9604,7 +9604,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quick Reply with Image & Tools"
+            "value" : "快速回复（带图像和工具）"
           }
         }
       }
@@ -9620,7 +9620,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quick Reply with Image and Tools"
+            "value" : "快速回复（带图像和工具）"
           }
         }
       }
@@ -9636,7 +9636,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quick Reply with Tools"
+            "value" : "快速回复（带工具）"
           }
         }
       }
@@ -10087,7 +10087,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Return the full transcript of the most recent FlowDown conversation."
+            "value" : "返回最近一次 FlowDown 对话的完整记录。"
           }
         }
       }
@@ -10119,7 +10119,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite concise ${text}"
+            "value" : "简洁改写 ${text}"
           }
         }
       }
@@ -10135,7 +10135,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite friendly ${text}"
+            "value" : "友好改写 ${text}"
           }
         }
       }
@@ -10151,7 +10151,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite professionally ${text}"
+            "value" : "专业改写 ${text}"
           }
         }
       }
@@ -10167,7 +10167,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite text in a more professional tone while preserving meaning."
+            "value" : "以更专业的语气改写文本，同时保留原意。"
           }
         }
       }
@@ -10183,7 +10183,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite text with a warmer and more approachable tone."
+            "value" : "以更温暖、更亲切的语气改写文本。"
           }
         }
       }
@@ -10199,7 +10199,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite the following content so it reads professional, confident, and concise while preserving the original meaning. Reply with the revised text only."
+            "value" : "改写以下内容，使其读起来专业、自信、简洁，同时保留原意。只回复修改后的文本。"
           }
         }
       }
@@ -10215,7 +10215,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite the following content to be more concise and direct while keeping essential details. Reply with the revised text only."
+            "value" : "将以下内容改写得更简洁、更直接，同时保留关键细节。只回复修改后的文本。"
           }
         }
       }
@@ -10231,7 +10231,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rewrite the following content to sound warm, friendly, and easy to understand while keeping the same intent. Reply with the revised text only."
+            "value" : "将以下内容改写得温暖、友好、易于理解，同时保持相同的意图。只回复修改后的文本。"
           }
         }
       }
@@ -10487,7 +10487,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select an image to include."
+            "value" : "选择要包含的图像。"
           }
         }
       }
@@ -10567,7 +10567,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Send a message with an image and get the model's response."
+            "value" : "发送带图像的消息并获取模型的回复。"
           }
         }
       }
@@ -10583,7 +10583,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Send a message with an image, allow tools, and get the response."
+            "value" : "发送带图像的消息，允许使用工具，并获取回复。"
           }
         }
       }
@@ -10599,7 +10599,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Send a message, allow model tools, and get the response."
+            "value" : "发送消息，允许使用模型工具，并获取回复。"
           }
         }
       }
@@ -11002,7 +11002,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Source Text:"
+            "value" : "原文："
           }
         }
       }
@@ -11226,7 +11226,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize ${text}"
+            "value" : "总结 ${text}"
           }
         }
       }
@@ -11242,7 +11242,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize as list ${text}"
+            "value" : "列表总结 ${text}"
           }
         }
       }
@@ -11258,7 +11258,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize content into a list of key points."
+            "value" : "将内容总结为关键要点列表。"
           }
         }
       }
@@ -11274,7 +11274,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize content into a short paragraph."
+            "value" : "将内容总结为简短段落。"
           }
         }
       }
@@ -11290,7 +11290,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize Text"
+            "value" : "总结文本"
           }
         }
       }
@@ -11306,7 +11306,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize Text as List"
+            "value" : "列表总结文本"
           }
         }
       }
@@ -11322,7 +11322,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize the following content into a concise paragraph that captures the main ideas. Reply with the summary only."
+            "value" : "将以下内容总结为简洁的段落，概括主要思想。只回复总结内容。"
           }
         }
       }
@@ -11338,7 +11338,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Summarize the following content into a list of short bullet points that highlight the essential facts. Reply with the bullet list only."
+            "value" : "将以下内容总结为简短要点列表，突出关键事实。只回复要点列表。"
           }
         }
       }
@@ -11856,7 +11856,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The latest conversation does not contain any messages."
+            "value" : "最近的对话不包含任何消息。"
           }
         }
       }
@@ -12016,7 +12016,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The provided image could not be processed."
+            "value" : "无法处理提供的图像。"
           }
         }
       }
@@ -12048,7 +12048,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The selected MCP server could not be located."
+            "value" : "找不到所选的 MCP 服务器。"
           }
         }
       }
@@ -12064,7 +12064,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The selected model does not support image inputs."
+            "value" : "所选模型不支持图像输入。"
           }
         }
       }
@@ -12080,7 +12080,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The selected model does not support tool calls."
+            "value" : "所选模型不支持工具调用。"
           }
         }
       }
@@ -12096,7 +12096,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The selected tool could not be located."
+            "value" : "找不到所选的工具。"
           }
         }
       }
@@ -12448,7 +12448,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This shortcut does not accept images."
+            "value" : "此快捷指令不接受图像。"
           }
         }
       }
@@ -12946,7 +12946,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trim text to be more concise without losing the key message."
+            "value" : "精简文本使其更简洁，同时不失关键信息。"
           }
         }
       }
@@ -12962,7 +12962,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Turn off every built-in tool and all MCP servers."
+            "value" : "关闭所有内置工具和所有 MCP 服务器。"
           }
         }
       }
@@ -13011,7 +13011,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unable to construct FlowDown URL."
+            "value" : "无法构建 FlowDown URL。"
           }
         }
       }
@@ -13107,7 +13107,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unable to encode the provided message."
+            "value" : "无法编码提供的消息。"
           }
         }
       }
@@ -13747,7 +13747,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "User"
+            "value" : "用户"
           }
         }
       }
@@ -14563,7 +14563,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What message should FlowDown use to start the chat?"
+            "value" : "FlowDown 应该使用什么消息来开始对话？"
           }
         }
       }
@@ -14579,7 +14579,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What text should be rewritten?"
+            "value" : "应该改写什么文本？"
           }
         }
       }
@@ -14595,7 +14595,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What text should be summarized?"
+            "value" : "应该总结什么文本？"
           }
         }
       }
@@ -14676,7 +14676,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Which model should rewrite the text?"
+            "value" : "应该使用哪个模型来改写文本？"
           }
         }
       }
@@ -14692,7 +14692,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Which model should summarize the text?"
+            "value" : "应该使用哪个模型来总结文本？"
           }
         }
       }
@@ -14708,7 +14708,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Which tool should be enabled?"
+            "value" : "应该启用哪个工具？"
           }
         }
       }
