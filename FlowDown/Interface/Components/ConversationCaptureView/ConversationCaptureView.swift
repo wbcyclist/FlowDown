@@ -40,6 +40,7 @@ class ConversationCaptureView: UIView {
     let avatarView = UIImageView()
 
     let appLabel = UILabel()
+    private var listHeightConstraint: Constraint?
 
     init(session: ConversationSession, preset: LayoutPreset) {
         self.session = session
@@ -66,6 +67,7 @@ class ConversationCaptureView: UIView {
         listView.snp.makeConstraints { make in
             make.top.equalTo(titleBar.snp.bottom).offset(16 - 4)
             make.left.right.equalToSuperview()
+            listHeightConstraint = make.height.equalTo(0).priority(.required).constraint
         }
 
         addSubview(sepB)
@@ -123,7 +125,7 @@ class ConversationCaptureView: UIView {
             make.top.equalTo(controller.view.snp.bottom)
             make.left.equalTo(controller.view.snp.right)
             make.width.equalTo(layoutWidth).priority(.required)
-            make.height.equalTo(1).priority(.required)
+            make.height.equalTo(5000).priority(.required)
         }
         controller.view.layoutIfNeeded()
         layoutIfNeeded()
@@ -131,7 +133,7 @@ class ConversationCaptureView: UIView {
         forceLightAppearanceRefresh()
         listView.updateList()
 
-        waitForStableLayout { [weak self, weak controller] in
+        waitForStableLayout { [weak self, weak controller] stableListHeight in
             guard let self, let controller else {
                 completion(nil)
                 return
@@ -139,14 +141,10 @@ class ConversationCaptureView: UIView {
 
             setNeedsLayout()
             layoutIfNeeded()
+            listHeightConstraint?.update(offset: stableListHeight)
+            layoutIfNeeded()
 
-            let fittingSize = systemLayoutSizeFitting(
-                .init(width: layoutWidth, height: UIView.layoutFittingCompressedSize.height),
-                withHorizontalFittingPriority: .required,
-                verticalFittingPriority: .fittingSizeLevel
-            )
-
-            let finalHeight = max(1, ceil(fittingSize.height))
+            let finalHeight = calculateRenderedHeight(listHeight: stableListHeight)
 
             snp.updateConstraints { make in
                 make.height.equalTo(finalHeight).priority(.required)
@@ -168,7 +166,7 @@ class ConversationCaptureView: UIView {
 
             completion(image)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.removeFromSuperview()
             }
         }
@@ -189,13 +187,14 @@ private extension ConversationCaptureView {
         }
     }
 
-    func waitForStableLayout(maxIterations: Int = 20, completion: @escaping () -> Void) {
+    func waitForStableLayout(maxIterations: Int = 20, completion: @escaping (CGFloat) -> Void) {
         var previousHeight: CGFloat = -1
         var iteration = 0
+        var latestHeight: CGFloat = 0
 
         func evaluate() {
             guard iteration <= maxIterations else {
-                completion()
+                completion(max(latestHeight, 0))
                 return
             }
 
@@ -204,10 +203,13 @@ private extension ConversationCaptureView {
             layoutIfNeeded()
             listView.layoutIfNeeded()
 
-            let contentHeight = listView.contentSize.height
+            let contentHeight = max(listView.contentSize.height, 0)
+            listHeightConstraint?.update(offset: contentHeight)
+            latestHeight = contentHeight
+            layoutIfNeeded()
 
             if abs(contentHeight - previousHeight) < 0.5, previousHeight >= 0 {
-                completion()
+                completion(contentHeight)
                 return
             }
 
@@ -218,5 +220,36 @@ private extension ConversationCaptureView {
         }
 
         DispatchQueue.main.async { evaluate() }
+    }
+
+    func calculateRenderedHeight(listHeight: CGFloat) -> CGFloat {
+        titleBar.layoutIfNeeded()
+        appLabel.layoutIfNeeded()
+
+        let titleHeight = titleBar.systemLayoutSizeFitting(
+            .init(width: layoutWidth, height: UIView.layoutFittingCompressedSize.height)
+        ).height
+        let labelHeight = appLabel.systemLayoutSizeFitting(
+            .init(width: layoutWidth, height: UIView.layoutFittingCompressedSize.height)
+        ).height
+
+        let topSpacing: CGFloat = 16 - 4
+        let separatorHeight: CGFloat = 1
+        let spacingBelowSeparator: CGFloat = 16
+        let avatarHeight: CGFloat = 24
+        let spacingAvatarToLabel: CGFloat = 8
+        let bottomPadding: CGFloat = 16
+
+        let total = titleHeight
+            + topSpacing
+            + listHeight
+            + separatorHeight
+            + spacingBelowSeparator
+            + avatarHeight
+            + spacingAvatarToLabel
+            + labelHeight
+            + bottomPadding
+
+        return max(1, ceil(total))
     }
 }
