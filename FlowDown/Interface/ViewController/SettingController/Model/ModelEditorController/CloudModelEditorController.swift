@@ -220,15 +220,13 @@ class CloudModelEditorController: StackScrollController {
         // additional body fields
         let bodyFieldsEditorView = ConfigurableInfoView()
         bodyFieldsEditorView.setTapBlock { [weak self] view in
-            guard let self else { return }
             guard let model = ModelManager.shared.cloudModel(identifier: model?.id) else { return }
             var text = model.bodyFields
             if text.isEmpty { text = "{}" }
 
             let textEditor = JsonEditorController(text: text)
-            textEditor.secondaryMenuBuilder = { _ in
-                UIMenu(children: [
-                ])
+            textEditor.secondaryMenuBuilder = { controller in
+                self?.buildExtraBodyEditorMenu(controller: controller) ?? .init()
             }
 
             textEditor.onTextDidChange = { draft in
@@ -665,27 +663,19 @@ class CloudModelEditorController: StackScrollController {
         }
 
         let deferredElement = UIDeferredMenuElement.uncached { completion in
-            Task { @MainActor in
-                guard let model = ModelManager.shared.cloudModel(identifier: modelId) else {
-                    completion([])
-                    return
-                }
+            guard let model = ModelManager.shared.cloudModel(identifier: modelId) else {
+                completion([])
+                return
+            }
 
-                let list = await withCheckedContinuation { continuation in
-                    ModelManager.shared.fetchModelList(identifier: model.id) { list in
-                        continuation.resume(returning: list)
-                    }
-                }
-
+            ModelManager.shared.fetchModelList(identifier: model.id) { list in
                 if list.isEmpty {
-                    let emptyAction = UIAction(
+                    completion([UIAction(
                         title: String(localized: "(None)"),
                         attributes: .disabled
-                    ) { _ in }
-                    completion([emptyAction])
+                    ) { _ in }])
                     return
                 }
-
                 let menuElements = self.buildModelSelectionMenu(from: list) { selection in
                     ModelManager.shared.editCloudModel(identifier: model.id) {
                         $0.update(\.model_identifier, to: selection)
@@ -752,6 +742,132 @@ class CloudModelEditorController: StackScrollController {
             return false
         }
         return jsonObject.isEmpty
+    }
+}
+
+private extension CloudModelEditorController {
+    enum ReasoningParametersType: String, CaseIterable {
+        // https://github.com/langchain-ai/langchain-nvidia/blob/main/libs/ai-endpoints/tests/unit_tests/test_chat_models.py
+        case reasoning // openrouter
+        case enableThinking = "enable_thinking"
+        case thinkingMode = "thinking_mode" // llama
+
+        var title: String.LocalizationValue { "Use \(rawValue) Key" }
+
+        func insert(to dic: inout [String: Any]) {
+            switch self {
+            case .enableThinking: dic[rawValue] = true
+            case .thinkingMode: dic[rawValue] = ["type": "enabled"]
+            case .reasoning: dic[rawValue] = ["enabled": true]
+            }
+        }
+    }
+
+    enum ReasoningEffort: String, CaseIterable {
+        case minimal
+        case low
+        case medium
+        case high
+
+        var thinkingBudgetTokens: Int {
+            switch self {
+            case .minimal: 512
+            case .low: 1024
+            case .medium: 4096
+            case .high: 8192
+            }
+        }
+
+        var title: String.LocalizationValue {
+            "Set Budget to \(thinkingBudgetTokens) Tokens"
+        }
+    }
+
+    private func buildExtraBodyEditorMenu(controller: JsonEditorController) -> UIMenu {
+        .init(children: [UIDeferredMenuElement.uncached { comp in
+            var children: [UIMenuElement] = []
+            let reasoningParmsActions = ReasoningParametersType.allCases.map { type -> UIAction in
+                UIAction(title: String(localized: type.title), image: UIImage(systemName: "key")) { _ in
+                    let dic = controller.currentDictionary
+                    let existingReasoningKeys = ReasoningParametersType.allCases.filter { existingType in
+                        dic.keys.contains(existingType.rawValue)
+                    }
+                    if !existingReasoningKeys.isEmpty, existingReasoningKeys != [type] {
+                        let alert = AlertViewController(
+                            title: "Duplicated Content",
+                            message: "Another key already exists, which usually causes errors. You can choose to replace it."
+                        ) { context in
+                            context.addAction(title: "Cancel") { context.dispose() }
+                            context.addAction(title: "Replace", attribute: .accent) {
+                                context.dispose {
+                                    controller.updateValue {
+                                        for type in existingReasoningKeys {
+                                            $0.removeValue(forKey: type.rawValue)
+                                        }
+                                        type.insert(to: &$0)
+                                    }
+                                }
+                            }
+                        }
+                        controller.present(alert, animated: true)
+                    } else {
+                        controller.updateValue { type.insert(to: &$0) }
+                    }
+                }
+            }
+            children.append(UIMenu(
+                title: String(localized: "Reasoning Parameters"),
+                image: UIImage(systemName: "brain.head.profile"),
+                options: [.displayInline],
+                children: reasoningParmsActions
+            ))
+
+            let dic = controller.currentDictionary
+            let existingReasoningKeys = ReasoningParametersType.allCases.filter { existingType in
+                dic.keys.contains(existingType.rawValue)
+            }
+            if existingReasoningKeys.count == 1, let key = existingReasoningKeys.first {
+                children.append(UIMenu(
+                    title: String(localized: "Reasoning Budget"),
+                    image: UIImage(systemName: "gauge"),
+                    options: [.displayInline],
+                    children: ReasoningEffort.allCases.map { effort -> UIAction in
+                        UIAction(title: String(localized: effort.title)) { _ in
+                            controller.updateValue { dic in
+                                switch key {
+                                case .thinkingMode:
+                                    dic["thinking_budget"] = effort.thinkingBudgetTokens
+                                case .enableThinking:
+                                    dic["thinking_budget"] = effort.thinkingBudgetTokens
+                                case .reasoning:
+                                    var value = dic[key.rawValue, default: [:]] as? [String: Any] ?? [:]
+                                    value["max_tokens"] = effort.thinkingBudgetTokens
+                                    dic[key.rawValue] = value
+                                }
+                            }
+                        }
+                    }
+                ))
+            } else {
+                let title: String.LocalizationValue = existingReasoningKeys.isEmpty
+                    ? "Unavailable - No Reasoning Key"
+                    : "Unavailable - Multiple Reasoning Keys"
+                children.append(UIMenu(
+                    title: String(localized: "Reasoning Budget"),
+                    image: UIImage(systemName: "gauge"),
+                    options: [.displayInline],
+                    children: [
+                        UIAction(
+                            title: String(localized: title),
+                            image: UIImage(systemName: "xmark.circle"),
+                            attributes: [.disabled]
+                        ) { _ in },
+                    ]
+                ))
+            }
+
+            comp(children)
+        }])
     }
 }
 

@@ -42,23 +42,6 @@
     "%@" : {
       "shouldTranslate" : false
     },
-    "%@ · %@ tokens" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ · %2$@ tokens"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ · %2$@ 令牌"
-          }
-        }
-      }
-    },
     "%@ Copy" : {
       "localizations" : {
         "en" : {
@@ -108,7 +91,7 @@
       }
     },
     "%lld" : {
-
+      "shouldTranslate" : false
     },
     "%lld servers imported successfully, %lld failed." : {
       "localizations" : {
@@ -764,6 +747,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "动物 & 自然"
+          }
+        }
+      }
+    },
+    "Another key already exists, which usually causes errors. You can choose to replace it." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "控制此选项的另一个键值已经存在。你可以选择进行替换。"
           }
         }
       }
@@ -2659,28 +2652,6 @@
         }
       }
     },
-    "Custom Thinking Budget" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自定义思考预算"
-          }
-        }
-      }
-    },
-    "Custom…" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自定义"
-          }
-        }
-      }
-    },
     "Customization" : {
       "localizations" : {
         "en" : {
@@ -3593,6 +3564,16 @@
         }
       }
     },
+    "Duplicated Content" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重复内容"
+          }
+        }
+      }
+    },
     "Edit" : {
       "localizations" : {
         "en" : {
@@ -4009,23 +3990,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "启用 iCloud 同步以保持多设备数据一致。关闭不会删除现有数据。"
-          }
-        }
-      }
-    },
-    "Enable Thinking Flag" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enable Thinking Flag"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enable Thinking 标识"
           }
         }
       }
@@ -5572,23 +5536,6 @@
         }
       }
     },
-    "High" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "High"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "高"
-          }
-        }
-      }
-    },
     "https://" : {
       "shouldTranslate" : false
     },
@@ -6842,23 +6789,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "较长"
-          }
-        }
-      }
-    },
-    "Low" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Low"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "低"
           }
         }
       }
@@ -8866,23 +8796,6 @@
         }
       }
     },
-    "Preset Plan" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preset Plan"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "预设方案"
-          }
-        }
-      }
-    },
     "Preview" : {
       "localizations" : {
         "en" : {
@@ -9060,36 +8973,22 @@
         }
       }
     },
-    "Reasoning Effort" : {
-      "extractionState" : "stale",
+    "Reasoning Budget" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reasoning Effort"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "思考深度"
+            "value" : "推理预算"
           }
         }
       }
     },
-    "Reasoning Payload" : {
-      "extractionState" : "stale",
+    "Reasoning Parameters" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reasoning Payload"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reasoning 参数负载"
+            "value" : "推理参数"
           }
         }
       }
@@ -9285,6 +9184,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在渲染"
+          }
+        }
+      }
+    },
+    "Replace" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "替换"
           }
         }
       }
@@ -9817,6 +9726,16 @@
         }
       }
     },
+    "Set Budget to %lld Tokens" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置预算：%lld"
+          }
+        }
+      }
+    },
     "Set the strategy for handling runtime resource cache. Allowing the use of cache can speed up inference and save energy, but may cause the software to close unexpectedly." : {
       "localizations" : {
         "en" : {
@@ -9829,17 +9748,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置处理运行时资源缓存的策略。允许使用缓存会加快推理速度，节约能源，但可能会导致软件意外关闭。"
-          }
-        }
-      }
-    },
-    "Set the thinking_budget tokens that will be merged into the request body." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置对模型的思考预算字段，将会被添加入请求体中"
           }
         }
       }
@@ -11149,17 +11057,6 @@
         }
       }
     },
-    "Thinking Budget" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "思考预算"
-          }
-        }
-      }
-    },
     "Thinking finished without output any content." : {
       "localizations" : {
         "en" : {
@@ -11172,40 +11069,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "思考已完成，但没有输出任何内容。"
-          }
-        }
-      }
-    },
-    "Thinking Mode Payload" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Thinking Mode Payload"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Thinking Mode 负载"
-          }
-        }
-      }
-    },
-    "Thinking Mode Presets" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Thinking Mode Presets"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "思考模式预设"
           }
         }
       }
@@ -11869,17 +11732,6 @@
         }
       }
     },
-    "Unable to %@ because the JSON payload is invalid. Please fix the syntax and try again." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "无法进行 %@ 因为当前的 JSON 格式并不正确。请检查并修正格式后再试。"
-          }
-        }
-      }
-    },
     "Unable to connect to the MCP server. Please check your network or server status." : {
       "localizations" : {
         "en" : {
@@ -12084,6 +11936,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无法处理工具调用：%@"
+          }
+        }
+      }
+    },
+    "Unavailable - Multiple Reasoning Keys" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不可用 - 存在重复键值"
+          }
+        }
+      }
+    },
+    "Unavailable - No Reasoning Key" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不可用 - 不存在推理选项"
           }
         }
       }
@@ -12484,6 +12356,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL 访问"
+          }
+        }
+      }
+    },
+    "Use %@ Key" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用键 %@"
           }
         }
       }

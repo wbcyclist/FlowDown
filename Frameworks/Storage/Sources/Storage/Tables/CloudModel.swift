@@ -92,9 +92,12 @@ public final class CloudModel: Identifiable, Codable, Equatable, Hashable, Table
         creation: Date = .init(),
         endpoint: String = "",
         token: String = "",
-        headers: [String: String] = [:],
+        headers: [String: String] = [
+            "HTTP-Referer": "https://flowdown.ai/",
+            "X-Title": "FlowDown",
+        ],
         bodyFields: String = "",
-        context _: ModelContextLength = .medium_64k,
+        context: ModelContextLength = .medium_64k,
         capabilities: Set<ModelCapabilities> = [],
         comment: String = "",
         name: String = "",
@@ -114,6 +117,7 @@ public final class CloudModel: Identifiable, Codable, Equatable, Hashable, Table
         self.capabilities = capabilities
         self.comment = comment
         self.name = name
+        self.context = context
         self.temperature_preference = temperature_preference
         self.temperature_override = temperature_override
     }

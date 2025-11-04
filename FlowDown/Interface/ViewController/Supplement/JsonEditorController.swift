@@ -17,13 +17,24 @@ class JsonEditorController: CodeEditorController {
         didSet {
             if let secondaryMenuBuilder {
                 navigationItem.rightBarButtonItems = [
-                    .init(systemItem: .edit, menu: secondaryMenuBuilder(self)),
                     doneBarButtonItem,
+                    .init(systemItem: .add, menu: secondaryMenuBuilder(self)),
                 ]
             } else {
                 navigationItem.rightBarButtonItems = [doneBarButtonItem]
             }
         }
+    }
+
+    var currentDictionary: [String: Any] {
+        let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let data = text.data(using: .utf8),
+              let object = try? JSONSerialization.jsonObject(with: data),
+              let dict = object as? [String: Any]
+        else {
+            return .init()
+        }
+        return dict
     }
 
     init(text: String) {
@@ -38,6 +49,19 @@ class JsonEditorController: CodeEditorController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.editorDelegate = self
+    }
+
+    func set(dic: [String: Any]) {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: dic, options: [.prettyPrinted, .sortedKeys])
+            guard let text = String(data: data, encoding: .utf8) else {
+                throw NSError()
+            }
+            textView.text = text
+            onTextDidChange?(textView.text)
+        } catch {
+            presentErrorAlert(message: error.localizedDescription)
+        }
     }
 
     override func done() {
@@ -78,6 +102,12 @@ class JsonEditorController: CodeEditorController {
             }
         }
         present(alert, animated: true)
+    }
+
+    func updateValue(_ callback: (_ temporaryDictionary: inout [String: Any]) -> Void) {
+        var dict = currentDictionary
+        callback(&dict)
+        set(dic: dict)
     }
 }
 
