@@ -80,16 +80,13 @@ extension ConversationSessionManager.Session {
                 input: messages
             )
 
-            let content = ans.content.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !content.lowercased().hasPrefix("<think>") else {
-                return nil
-            }
+            let sanitizedContent = ModelResponseSanitizer.stripReasoning(from: ans.content)
 
-            if let title = extractTitleFromXML(ans.content) {
+            if let title = extractTitleFromXML(sanitizedContent) {
                 return title.count > 32 ? String(title.prefix(32)) : title
             }
 
-            var ret = ans.content.trimmingCharacters(in: .whitespacesAndNewlines)
+            var ret = sanitizedContent.trimmingCharacters(in: .whitespacesAndNewlines)
             if ret.isEmpty { return nil }
             if ret.count > 32 { ret = String(ret.prefix(32)) }
             return ret
