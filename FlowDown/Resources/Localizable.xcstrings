@@ -6780,23 +6780,6 @@
         }
       }
     },
-    "Include Images" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Include Images"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "包含图片"
-          }
-        }
-      }
-    },
     "Inference" : {
       "localizations" : {
         "en" : {
@@ -11012,23 +10995,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "按关键字搜索已保存的会话，并返回格式化摘要。"
-          }
-        }
-      }
-    },
-    "Search saved conversations by keyword, date, and whether they include images." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Search saved conversations by keyword, date, and whether they include images."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "按关键词、日期以及是否包含图片搜索已保存的对话。"
           }
         }
       }
