@@ -7,23 +7,6 @@
     "..." : {
       "shouldTranslate" : false
     },
-    "(No content)" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(No content)"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "（无内容）"
-          }
-        }
-      }
-    },
     "(No Content)" : {
       "localizations" : {
         "en" : {
@@ -1916,23 +1899,6 @@
         }
       }
     },
-    "Choose how FlowDown proactively shares stored memories with the model during conversations and Shortcuts automations." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose how FlowDown proactively shares stored memories with the model during conversations and Shortcuts automations."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择 FlowDown 在对话与快捷指令自动化中向模型主动提供记忆的方式。"
-          }
-        }
-      }
-    },
     "Choose how we proactively shares stored memories with the model during conversations and automations. This includes system Shortcuts." : {
       "localizations" : {
         "en" : {
@@ -3391,23 +3357,6 @@
         }
       }
     },
-    "Date" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Date"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日期"
-          }
-        }
-      }
-    },
     "Date range cannot exceed 7 days" : {
       "localizations" : {
         "en" : {
@@ -4688,23 +4637,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "启用记忆"
-          }
-        }
-      }
-    },
-    "Enable memory tools during inference" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enable memory tools during inference"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "推理时启用记忆工具"
           }
         }
       }
@@ -7345,23 +7277,6 @@
         }
       }
     },
-    "Keyword: %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keyword: %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "关键词：%@"
-          }
-        }
-      }
-    },
     "Large" : {
       "comment" : "Font Size",
       "localizations" : {
@@ -9141,40 +9056,6 @@
         }
       }
     },
-    "On date: %@" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "On date: %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日期：%@"
-          }
-        }
-      }
-    },
-    "Only conversations with images" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Only conversations with images"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "仅包含图片的对话"
-          }
-        }
-      }
-    },
     "Open" : {
       "localizations" : {
         "en" : {
@@ -10906,23 +10787,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存图片"
-          }
-        }
-      }
-    },
-    "Save response to conversation history" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save response to conversation history"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "将回复保存到对话记录"
           }
         }
       }
@@ -15351,23 +15215,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "应该总结什么文本？"
-          }
-        }
-      }
-    },
-    "When enabled, FlowDown will include stored memories in system prompts and Shortcuts inference even if memory tools are disabled." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "When enabled, FlowDown will include stored memories in system prompts and Shortcuts inference even if memory tools are disabled."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "开启后，即使未启用记忆工具，FlowDown 也会在系统提示词与快捷指令推理中提供已存储的记忆。"
           }
         }
       }

@@ -8,92 +8,10 @@ import json
 import sys
 import os
 
+# you can modify this script to populate localization strings as needed
+# just remember to remove the entries from NEW_STRINGS after committing
 NEW_STRINGS: dict[str, dict[str, str]] = {
-    "Proactive Memory": {"zh-Hans": "主动提供记忆"},
-    "When enabled, FlowDown will include stored memories in system prompts and Shortcuts inference even if memory tools are disabled.": {
-        "zh-Hans": "开启后，即使未启用记忆工具，FlowDown 也会在系统提示词与快捷指令推理中提供已存储的记忆。"
-    },
-    "Proactive Memory Context": {"zh-Hans": "主动提供的记忆摘要"},
-    "Choose how FlowDown proactively shares stored memories with the model during conversations and Shortcuts automations.": {
-        "zh-Hans": "选择 FlowDown 在对话与快捷指令自动化中向模型主动提供记忆的方式。"
-    },
-    "Off": {"zh-Hans": "关闭"},
-    "Past Day": {"zh-Hans": "1 天内"},
-    "Past Week": {"zh-Hans": "1 周内"},
-    "Past Month": {"zh-Hans": "1 个月内"},
-    "Past Year": {"zh-Hans": "1 年内"},
-    "Latest 15 Items": {"zh-Hans": "最近 15 项"},
-    "Latest 30 Items": {"zh-Hans": "最近 30 项"},
-    "All Memories": {"zh-Hans": "所有"},
-    "Proactive memory sharing is disabled.": {"zh-Hans": "已关闭主动提供记忆。"},
-    "Memories saved within the past 24 hours.": {"zh-Hans": "包含过去 24 小时内保存的记忆。"},
-    "Memories saved within the past 7 days.": {"zh-Hans": "包含过去 7 天内保存的记忆。"},
-    "Memories saved within the past 30 days.": {"zh-Hans": "包含过去 30 天内保存的记忆。"},
-    "Memories saved within the past year.": {"zh-Hans": "包含过去一年内保存的记忆。"},
-    "The most recent 15 memories.": {"zh-Hans": "包含最近的 15 条记忆。"},
-    "The most recent 30 memories.": {"zh-Hans": "包含最近的 30 条记忆。"},
-    "All stored memories.": {"zh-Hans": "包含所有已存储的记忆。"},
-    "Scope: %@": {"zh-Hans": "范围：%@"},
-    "%d. [%@] %@": {"zh-Hans": "%d. [%@] %@"},
-    "This summary is provided automatically according to the user's proactive memory setting, even when memory tools are disabled.": {
-        "zh-Hans": "该摘要根据用户的主动记忆设置自动提供，即使记忆工具未启用也会附带。"
-    },
-    "A proactive memory summary has been provided above according to the user's setting. Treat it as reliable context and keep it updated through memory tools when necessary.": {
-        "zh-Hans": "根据用户的设置，上方已提供主动记忆摘要。请将其视为可靠的上下文，并在需要时通过记忆工具保持更新。"
-    },
-    "Save to Conversation": {"zh-Hans": "保存到对话"},
-    "Enable Memory": {"zh-Hans": "启用记忆"},
-    "Save response to conversation history": {"zh-Hans": "将回复保存到对话记录"},
-    "Enable memory tools during inference": {"zh-Hans": "推理时启用记忆工具"},
-    "Attachment shared via Shortcut.": {"zh-Hans": "通过快捷指令分享的附件。"},
-    "Quick Reply %@": {"zh-Hans": "快速回复 %@"},
-    "Classify Content": {"zh-Hans": "分类内容"},
-    "Use the model to classify content into one of the provided candidates. If the model cannot decide, the first candidate is returned.": {
-        "zh-Hans": "使用模型将内容分类到提供的候选项之一。如果模型无法决定，则返回第一个候选项。"
-    },
-    "Prompt": {"zh-Hans": "提示"},
-    "Candidates": {"zh-Hans": "候选项"},
-    "What content should be classified?": {"zh-Hans": "需要分类的内容是什么？"},
-    "Provide the candidate labels.": {"zh-Hans": "请提供候选标签。"},
-    "Classify Content with Image": {"zh-Hans": "分类内容（含图像）"},
-    "Use the model to classify content with the help of an accompanying image. If the model cannot decide, the first candidate is returned.": {
-        "zh-Hans": "使用模型结合附带的图像对内容进行分类。如果模型无法决定，则返回第一个候选项。"
-    },
-    "Add any additional details for the classification.": {"zh-Hans": "请补充任何额外的分类细节。"},
-    "Select an image to accompany the request.": {"zh-Hans": "请选择要随请求附上的图像。"},
-    "An image is provided with this request. Consider the visual details when selecting the candidate.": {
-        "zh-Hans": "此请求附带图像。选择候选项时请参考视觉细节。"
-    },
-    "Classify + Image": {"zh-Hans": "分类 + 图像"},
-    "Classify ${image}": {"zh-Hans": "分类 ${image}"},
-    "You are a classification assistant. Choose the best candidate for the provided content.": {
-        "zh-Hans": "你是一名分类助手。请为提供的内容选择最合适的候选项。"
-    },
-    "Respond with exactly one candidate string from the list above. If you are unsure, respond with '%@'.": {
-        "zh-Hans": "从上述列表中仅返回一个候选项字符串。如果不确定，请返回“%@”。"
-    },
-    "Candidates:": {"zh-Hans": "候选项："},
-    "Content:": {"zh-Hans": "内容："},
-    "Search Conversations": {"zh-Hans": "搜索对话"},
-    "Search saved conversations by keyword, date, and whether they include images.": {
-        "zh-Hans": "按关键词、日期以及是否包含图片搜索已保存的对话。"
-    },
-    "Keyword": {"zh-Hans": "关键词"},
-    "Date": {"zh-Hans": "日期"},
-    "Include Images": {"zh-Hans": "包含图片"},
-    "Search conversations": {"zh-Hans": "搜索对话"},
-    "Keyword: %@": {"zh-Hans": "关键词：%@"},
-    "On date: %@": {"zh-Hans": "日期：%@"},
-    "Only conversations with images": {"zh-Hans": "仅包含图片的对话"},
-    "No conversations found.": {"zh-Hans": "未找到对话。"},
-    "%d conversation(s) matched your criteria.": {"zh-Hans": "符合条件的对话数：%d。"},
-    "%@ • %@": {"zh-Hans": "%@ • %@"},
-    "[%@] %@": {"zh-Hans": "[%@] %@"},
-    "(No content)": {"zh-Hans": "（无内容）"},
-    "Classify": {"zh-Hans": "分类"},
-    "Search Chats": {"zh-Hans": "搜索聊天"},
-    "At least one candidate is required.": {"zh-Hans": "至少需要一个候选项。"},
-    "Classify %@": {"zh-Hans": "分类 %@"},
+    
 }
 
 def update_translations(file_path):
