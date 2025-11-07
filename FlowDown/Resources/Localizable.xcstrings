@@ -6215,6 +6215,22 @@
         }
       }
     },
+    "How many results should FlowDown return?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How many results should FlowDown return?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FlowDown 应返回多少条结果？"
+          }
+        }
+      }
+    },
     "https://" : {
       "shouldTranslate" : false
     },
@@ -6765,6 +6781,7 @@
       }
     },
     "Include Images" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -10519,6 +10536,22 @@
         }
       }
     },
+    "Result Limit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Result Limit"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "结果上限"
+          }
+        }
+      }
+    },
     "Retrieving Location" : {
       "localizations" : {
         "en" : {
@@ -10967,7 +11000,24 @@
         }
       }
     },
+    "Search saved conversations by keyword and return formatted summaries." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search saved conversations by keyword and return formatted summaries."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按关键字搜索已保存的会话，并返回格式化摘要。"
+          }
+        }
+      }
+    },
     "Search saved conversations by keyword, date, and whether they include images." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

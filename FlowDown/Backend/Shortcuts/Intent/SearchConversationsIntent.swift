@@ -9,7 +9,7 @@ struct SearchConversationsIntent: AppIntent {
 
     static var description = IntentDescription(
         LocalizedStringResource(
-            "Search saved conversations by keyword, date, and whether they include images."
+            "Search saved conversations by keyword and return formatted summaries."
         )
     )
 
@@ -20,23 +20,27 @@ struct SearchConversationsIntent: AppIntent {
     var keyword: String?
 
     @Parameter(
-        title: LocalizedStringResource("Include Images")
+        title: LocalizedStringResource("Result Limit"),
+        default: 5,
+        requestValueDialog: IntentDialog("How many results should FlowDown return?")
     )
-    var includeImages: Bool
+    var resultLimit: Int
 
     static var parameterSummary: some ParameterSummary {
         Summary("Search conversations") {
             \.$keyword
-            \.$includeImages
+            \.$resultLimit
         }
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<[String]> & ProvidesDialog {
         let sanitizedKeyword = keyword?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
 
+        let normalizedLimit = SearchConversationsIntentHelper.normalizeLimit(resultLimit)
+
         let results = SearchConversationsIntentHelper.search(
             keyword: sanitizedKeyword,
-            requireImages: includeImages
+            maxResults: normalizedLimit
         )
 
         if results.isEmpty {
@@ -55,14 +59,22 @@ struct SearchConversationsIntent: AppIntent {
 }
 
 enum SearchConversationsIntentHelper {
+    private static let maximumResultLimit = 50
+
+    static func normalizeLimit(_ limit: Int) -> Int {
+        let clamped = min(max(limit, 1), maximumResultLimit)
+        return clamped
+    }
+
     static func search(
         keyword: String?,
-        requireImages: Bool
+        maxResults: Int
     ) -> [String] {
         let conversations = sdb.conversationList()
         guard !conversations.isEmpty else { return [] }
 
         var results: [String] = []
+        let limit = normalizeLimit(maxResults)
         let headerFormatter = DateFormatter()
         headerFormatter.dateStyle = .medium
         headerFormatter.timeStyle = .short
@@ -77,10 +89,6 @@ enum SearchConversationsIntentHelper {
                 .filter { [.user, .assistant].contains($0.role) }
 
             if messages.isEmpty {
-                continue
-            }
-
-            if requireImages, !conversationHasImage(messages: messages) {
                 continue
             }
 
@@ -103,19 +111,13 @@ enum SearchConversationsIntentHelper {
                 messageFormatter: messageFormatter
             )
             results.append(formatted)
+
+            if results.count >= limit {
+                break
+            }
         }
 
         return results
-    }
-
-    private static func conversationHasImage(messages: [Message]) -> Bool {
-        for message in messages {
-            let attachments = sdb.attachment(for: message.objectId)
-            if attachments.contains(where: { $0.type == "image" }) {
-                return true
-            }
-        }
-        return false
     }
 
     private static func formatResult(

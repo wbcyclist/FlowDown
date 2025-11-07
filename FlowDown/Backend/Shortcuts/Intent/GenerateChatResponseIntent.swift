@@ -28,12 +28,14 @@ struct GenerateChatResponseIntent: AppIntent {
     var message: String
 
     @Parameter(
-        title: LocalizedStringResource("Save to Conversation")
+        title: LocalizedStringResource("Save to Conversation"),
+        default: false
     )
     var saveToConversation: Bool
 
     @Parameter(
-        title: LocalizedStringResource("Enable Memory")
+        title: LocalizedStringResource("Enable Memory"),
+        default: false
     )
     var enableMemory: Bool
 
@@ -92,12 +94,14 @@ struct GenerateChatResponseWithImagesIntent: AppIntent {
     var image: IntentFile?
 
     @Parameter(
-        title: LocalizedStringResource("Save to Conversation")
+        title: LocalizedStringResource("Save to Conversation"),
+        default: false
     )
     var saveToConversation: Bool
 
     @Parameter(
-        title: LocalizedStringResource("Enable Memory")
+        title: LocalizedStringResource("Enable Memory"),
+        default: false
     )
     var enableMemory: Bool
 
