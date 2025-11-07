@@ -47,6 +47,17 @@
 		50D6CB1C2EBDFCB50037488A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		502C4C502EBE3FEA0067CE27 /* Exceptions for "Resources" folder in "FlowDown" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"InfoPlist/Info-Catalyst.plist",
+				"InfoPlist/Info-iOS.plist",
+			);
+			target = 503498BC2D23053D004672BD /* FlowDown */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3C2409992E97803B0055F162 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -70,6 +81,9 @@
 		};
 		50B514682D2305E30092284C /* Resources */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				502C4C502EBE3FEA0067CE27 /* Exceptions for "Resources" folder in "FlowDown" target */,
+			);
 			path = Resources;
 			sourceTree = "<group>";
 		};

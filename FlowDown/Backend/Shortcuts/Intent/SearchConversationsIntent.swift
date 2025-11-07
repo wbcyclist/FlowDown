@@ -4,34 +4,29 @@ import Storage
 
 struct SearchConversationsIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Search Conversations")
+        "Search Conversations"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Search saved conversations by keyword and return formatted summaries."
-        )
-    )
+    static var description: IntentDescription {
+        "Search saved conversations by keyword and return formatted summaries."
+    }
 
     static var authenticationPolicy: IntentAuthenticationPolicy {
         .requiresAuthentication
     }
 
-    @Parameter(
-        title: LocalizedStringResource("Keyword"),
-        default: nil
-    )
+    @Parameter(title: "Keyword", default: nil)
     var keyword: String?
 
-    @Parameter(
-        title: LocalizedStringResource("Result Limit"),
-        default: 5,
-        requestValueDialog: IntentDialog(LocalizedStringResource("How many results should FlowDown return?"))
-    )
+    @Parameter(title: "Result Limit", default: 5, requestValueDialog: "How many results should FlowDown return?")
     var resultLimit: Int
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Search conversations")
+        When(\.$keyword, .hasAnyValue) {
+            Summary("Search up to \(\.$resultLimit) conversations matching \(\.$keyword)")
+        } otherwise: {
+            Summary("Search the latest \(\.$resultLimit) conversations")
+        }
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<[String]> & ProvidesDialog {

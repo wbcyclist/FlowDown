@@ -6,41 +6,37 @@ import UniformTypeIdentifiers
 
 struct QuickResponseIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Quick Reply")
+        "Quick Reply"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Send a message and get the model's response."
-        )
-    )
+    static var description: IntentDescription {
+        "Send a message and get the model's response."
+    }
 
-    @Parameter(
-        title: LocalizedStringResource("Model"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("Which model should answer?"))
-    )
+    @Parameter(title: "Model", default: nil, requestValueDialog: "Which model should answer?")
     var model: ShortcutsEntities.ModelEntity?
 
-    @Parameter(
-        title: LocalizedStringResource("Message"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("What do you want to ask?"))
-    )
+    @Parameter(title: "Message", requestValueDialog: "What do you want to ask?")
     var message: String
 
-    @Parameter(
-        title: LocalizedStringResource("Save to Conversation"),
-        default: false
-    )
+    @Parameter(title: "Save to Conversation", default: false)
     var saveToConversation: Bool
 
-    @Parameter(
-        title: LocalizedStringResource("Enable Memory"),
-        default: false
-    )
+    @Parameter(title: "Enable Memory Tools", default: false)
     var enableMemory: Bool
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Quick Reply")
+        When(\.$model, .hasAnyValue) {
+            Summary("Ask \(\.$message) with \(\.$model).") {
+                \.$saveToConversation
+                \.$enableMemory
+            }
+        } otherwise: {
+            Summary("Ask \(\.$message) with the default model.") {
+                \.$saveToConversation
+                \.$enableMemory
+            }
+        }
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
@@ -62,48 +58,40 @@ struct QuickResponseIntent: AppIntent {
 @available(iOS 18.0, macCatalyst 18.0, *)
 struct GenerateChatResponseWithImagesIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Quick Reply with Image")
+        "Quick Reply with Image"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Send a message with an image and get the model's response."
-        )
-    )
+    static var description: IntentDescription {
+        "Send a message and get the model's response."
+    }
 
-    @Parameter(
-        title: LocalizedStringResource("Model"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("Which model should answer?"))
-    )
+    @Parameter(title: "Model", default: nil, requestValueDialog: "Which model should answer?")
     var model: ShortcutsEntities.ModelEntity?
 
-    @Parameter(
-        title: LocalizedStringResource("Message"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("What do you want to ask?"))
-    )
+    @Parameter(title: "Message", requestValueDialog: "What do you want to ask?")
     var message: String
 
-    @Parameter(
-        title: LocalizedStringResource("Image"),
-        supportedContentTypes: [.image],
-        requestValueDialog: IntentDialog(LocalizedStringResource("Select an image to include."))
-    )
+    @Parameter(title: "Image", supportedContentTypes: [.image], requestValueDialog: "Select an image to include.")
     var image: IntentFile?
 
-    @Parameter(
-        title: LocalizedStringResource("Save to Conversation"),
-        default: false
-    )
+    @Parameter(title: "Save to Conversation", default: false)
     var saveToConversation: Bool
 
-    @Parameter(
-        title: LocalizedStringResource("Enable Memory"),
-        default: false
-    )
+    @Parameter(title: "Enable Memory", default: false)
     var enableMemory: Bool
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Quick Reply with Image")
+        When(\.$model, .hasAnyValue) {
+            Summary("Ask \(\.$message) using \(\.$model) and optional image \(\.$image).") {
+                \.$saveToConversation
+                \.$enableMemory
+            }
+        } otherwise: {
+            Summary("Ask \(\.$message) using the default model and an optional image \(\.$image).") {
+                \.$saveToConversation
+                \.$enableMemory
+            }
+        }
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {

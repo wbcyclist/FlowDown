@@ -3,14 +3,12 @@ import Foundation
 
 struct FetchLastConversationDetailsIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Fetch Last Conversation")
+        "Fetch Last Conversation"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Return the full transcript of the most recent FlowDown conversation."
-        )
-    )
+    static var description: IntentDescription {
+        "Return the full transcript of the most recent FlowDown conversation."
+    }
 
     static var authenticationPolicy: IntentAuthenticationPolicy {
         .requiresAuthentication

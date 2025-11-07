@@ -1290,6 +1290,18 @@
         }
       }
     },
+    "Ask ${message} using ${model} and optional image ${image}." : {
+
+    },
+    "Ask ${message} using the default model and an optional image ${image}." : {
+
+    },
+    "Ask ${message} with ${model}." : {
+
+    },
+    "Ask ${message} with the default model." : {
+
+    },
     "Ask Model" : {
       "localizations" : {
         "en" : {
@@ -1979,22 +1991,6 @@
         }
       }
     },
-    "Classify %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Classify %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分类 %@"
-          }
-        }
-      }
-    },
     "Classify + Image" : {
       "localizations" : {
         "en" : {
@@ -2011,37 +2007,11 @@
         }
       }
     },
-    "Classify ${content}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Classify ${content}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分类 ${content}"
-          }
-        }
-      }
+    "Classify ${content} with prompt ${prompt} choosing from ${candidates}" : {
+
     },
-    "Classify ${image}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Classify ${image}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分类 ${image}"
-          }
-        }
-      }
+    "Classify ${image} with prompt ${prompt}, additional details ${content}, choosing from ${candidates}" : {
+
     },
     "Classify Content" : {
       "localizations" : {
@@ -3069,21 +3039,11 @@
         }
       }
     },
-    "Create conversation link with ${message}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create conversation link with ${message}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "创建对话链接 ${message}"
-          }
-        }
-      }
+    "Create conversation link prefilled with ${message}" : {
+
+    },
+    "Create conversation link without an initial message" : {
+
     },
     "Create Copy" : {
       "localizations" : {
@@ -4640,6 +4600,9 @@
           }
         }
       }
+    },
+    "Enable Memory Tools" : {
+
     },
     "Enable this to automatically collapse reasoning content after the reasoning is completed. This is useful for keeping the chat interface clean and focused on the final response." : {
       "localizations" : {
@@ -10599,53 +10562,23 @@
         }
       }
     },
-    "Rewrite concise ${text}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rewrite concise ${text}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "简洁改写 ${text}"
-          }
-        }
-      }
+    "Rewrite ${text} in a friendly tone using ${model}" : {
+
     },
-    "Rewrite friendly ${text}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rewrite friendly ${text}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "友好改写 ${text}"
-          }
-        }
-      }
+    "Rewrite ${text} in a friendly tone with the default model" : {
+
     },
-    "Rewrite professionally ${text}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rewrite professionally ${text}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "专业改写 ${text}"
-          }
-        }
-      }
+    "Rewrite ${text} in a professional tone using ${model}" : {
+
+    },
+    "Rewrite ${text} in a professional tone with the default model" : {
+
+    },
+    "Rewrite ${text} to be concise using ${model}" : {
+
+    },
+    "Rewrite ${text} to be concise with the default model" : {
+
     },
     "Rewrite text in a more professional tone while preserving meaning." : {
       "localizations" : {
@@ -10871,22 +10804,6 @@
         }
       }
     },
-    "Search conversations" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Search conversations"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "搜索对话"
-          }
-        }
-      }
-    },
     "Search Conversations" : {
       "localizations" : {
         "en" : {
@@ -11014,6 +10931,12 @@
           }
         }
       }
+    },
+    "Search the latest ${resultLimit} conversations" : {
+
+    },
+    "Search up to ${resultLimit} conversations matching ${keyword}" : {
+
     },
     "Search…" : {
       "localizations" : {
@@ -11144,6 +11067,7 @@
       }
     },
     "Send a message with an image and get the model's response." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -11255,22 +11179,6 @@
         }
       }
     },
-    "Set conversation model to ${model}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Set conversation model to ${model}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "对话模型设置：${model}"
-          }
-        }
-      }
-    },
     "Set Model" : {
       "localizations" : {
         "en" : {
@@ -11286,6 +11194,9 @@
           }
         }
       }
+    },
+    "Set the default conversation model to ${model}" : {
+
     },
     "Set the strategy for handling runtime resource cache. Allowing the use of cache can speed up inference and save energy, but may cause the software to close unexpectedly." : {
       "localizations" : {
@@ -11818,37 +11729,17 @@
         }
       }
     },
-    "Summarize ${text}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Summarize ${text}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "总结 ${text}"
-          }
-        }
-      }
+    "Summarize ${text} as a list using ${model}" : {
+
     },
-    "Summarize as list ${text}" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Summarize as list ${text}"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "列表总结 ${text}"
-          }
-        }
-      }
+    "Summarize ${text} as a list with the default model" : {
+
+    },
+    "Summarize ${text} using ${model}" : {
+
+    },
+    "Summarize ${text} with the default model" : {
+
     },
     "Summarize content into a list of key points." : {
       "localizations" : {

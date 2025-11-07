@@ -3,34 +3,24 @@ import Foundation
 
 struct ClassifyContentIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Classify Content")
+        "Classify Content"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Use the model to classify content into one of the provided candidates. If the model cannot decide, the first candidate is returned."
-        )
-    )
+    static var description: IntentDescription {
+        "Use the model to classify content into one of the provided candidates. If the model cannot decide, the first candidate is returned."
+    }
 
-    @Parameter(
-        title: LocalizedStringResource("Prompt")
-    )
+    @Parameter(title: "Prompt")
     var prompt: String
 
-    @Parameter(
-        title: LocalizedStringResource("Content"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("What content should be classified?"))
-    )
+    @Parameter(title: "Content", requestValueDialog: "What content should be classified?")
     var content: String
 
-    @Parameter(
-        title: LocalizedStringResource("Candidates"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("Provide the candidate labels."))
-    )
+    @Parameter(title: "Candidates", requestValueDialog: "Provide the candidate labels.")
     var candidates: [String]
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Classify \(\.$content)")
+        Summary("Classify \(\.$content) with prompt \(\.$prompt) choosing from \(\.$candidates)")
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
@@ -58,42 +48,27 @@ struct ClassifyContentIntent: AppIntent {
 @available(iOS 18.0, macCatalyst 18.0, *)
 struct ClassifyContentWithImageIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Classify Content with Image")
+        "Classify Content with Image"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Use the model to classify content with the help of an accompanying image. If the model cannot decide, the first candidate is returned."
-        )
-    )
+    static var description: IntentDescription {
+        "Use the model to classify content with the help of an accompanying image. If the model cannot decide, the first candidate is returned."
+    }
 
-    @Parameter(
-        title: LocalizedStringResource("Prompt")
-    )
+    @Parameter(title: "Prompt")
     var prompt: String
 
-    @Parameter(
-        title: LocalizedStringResource("Content"),
-        default: "",
-        requestValueDialog: IntentDialog(LocalizedStringResource("Add any additional details for the classification."))
-    )
+    @Parameter(title: "Content", default: "", requestValueDialog: "Add any additional details for the classification.")
     var content: String
 
-    @Parameter(
-        title: LocalizedStringResource("Image"),
-        supportedContentTypes: [.image],
-        requestValueDialog: IntentDialog(LocalizedStringResource("Select an image to accompany the request."))
-    )
+    @Parameter(title: "Image", supportedContentTypes: [.image], requestValueDialog: "Select an image to accompany the request.")
     var image: IntentFile
 
-    @Parameter(
-        title: LocalizedStringResource("Candidates"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("Provide the candidate labels."))
-    )
+    @Parameter(title: "Candidates", requestValueDialog: "Provide the candidate labels.")
     var candidates: [String]
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Classify \(\.$image)")
+        Summary("Classify \(\.$image) with prompt \(\.$prompt), additional details \(\.$content), choosing from \(\.$candidates)")
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {

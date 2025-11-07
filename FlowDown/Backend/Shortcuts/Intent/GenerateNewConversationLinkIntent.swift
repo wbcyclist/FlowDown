@@ -3,23 +3,22 @@ import Foundation
 
 struct GenerateNewConversationLinkIntent: AppIntent {
     static var title: LocalizedStringResource {
-        LocalizedStringResource("Create Conversation Link")
+        "Create Conversation Link"
     }
 
-    static var description = IntentDescription(
-        LocalizedStringResource(
-            "Create a FlowDown deep link that starts a new conversation."
-        )
-    )
+    static var description: IntentDescription {
+        "Create a FlowDown deep link that starts a new conversation."
+    }
 
-    @Parameter(
-        title: LocalizedStringResource("Initial Message"),
-        requestValueDialog: IntentDialog(LocalizedStringResource("What message should we pre-fill?"))
-    )
+    @Parameter(title: "Initial Message", default: nil, requestValueDialog: "What message should we pre-fill?")
     var message: String?
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Create conversation link with \(\.$message)")
+        When(\.$message, .hasAnyValue) {
+            Summary("Create conversation link prefilled with \(\.$message)")
+        } otherwise: {
+            Summary("Create conversation link without an initial message")
+        }
     }
 
     func perform() async throws -> some IntentResult & ReturnsValue<String> & ProvidesDialog {
