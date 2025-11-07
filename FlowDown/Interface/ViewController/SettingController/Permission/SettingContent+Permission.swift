@@ -123,21 +123,23 @@ extension SettingController.SettingContent {
             ) { $0.top /= 2 }
             stackView.addArrangedSubview(SeparatorView())
 
-            stackView.addArrangedSubviewWithMargin(
-                ConfigurableSectionHeaderView().with(
-                    header: "Location"
-                )
-            ) { $0.bottom /= 2 }
-            stackView.addArrangedSubview(SeparatorView())
-            stackView.addArrangedSubviewWithMargin(locationUsage)
-            stackView.addArrangedSubview(SeparatorView())
+            #if !targetEnvironment(macCatalyst)
+                stackView.addArrangedSubviewWithMargin(
+                    ConfigurableSectionHeaderView().with(
+                        header: "Location"
+                    )
+                ) { $0.bottom /= 2 }
+                stackView.addArrangedSubview(SeparatorView())
+                stackView.addArrangedSubviewWithMargin(locationUsage)
+                stackView.addArrangedSubview(SeparatorView())
 
-            stackView.addArrangedSubviewWithMargin(
-                ConfigurableSectionFooterView().with(
-                    footer: "Please note that if you use cloud-based models to process your request, your data may be sent to your service provider."
-                )
-            ) { $0.top /= 2 }
-            stackView.addArrangedSubview(SeparatorView())
+                stackView.addArrangedSubviewWithMargin(
+                    ConfigurableSectionFooterView().with(
+                        footer: "Please note that if you use cloud-based models to process your request, your data may be sent to your service provider."
+                    )
+                ) { $0.top /= 2 }
+                stackView.addArrangedSubview(SeparatorView())
+            #endif
 
             stackView.addArrangedSubviewWithMargin(
                 ConfigurableSectionHeaderView().with(
