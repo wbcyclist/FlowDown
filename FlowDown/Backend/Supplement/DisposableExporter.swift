@@ -7,6 +7,9 @@ final class DisposableExporter: NSObject {
         case text
     }
 
+    private static var activeExporters: [UUID: DisposableExporter] = [:]
+
+    private let identifier = UUID()
     private let deletableItem: URL
     private let title: String?
 
@@ -39,15 +42,19 @@ final class DisposableExporter: NSObject {
     }
 
     func run(anchor toView: UIView, mode: RunMode = .file) {
-        guard let presentingViewController = toView.parentViewController else { return }
+        guard let presentingViewController = toView.parentViewController else {
+            cleanup()
+            return
+        }
+
+        retainSelf()
 
         switch mode {
         case .text:
             // Always use UIActivityViewController for text
             let activityVC = UIActivityViewController(activityItems: [deletableItem], applicationActivities: nil)
-            activityVC.completionWithItemsHandler = { [weak self] _, _, _, _ in
-                guard let self else { return }
-                try? FileManager.default.removeItem(at: deletableItem)
+            activityVC.completionWithItemsHandler = { _, _, _, _ in
+                self.cleanup()
             }
             if let popover = activityVC.popoverPresentationController {
                 popover.sourceView = toView
@@ -63,9 +70,8 @@ final class DisposableExporter: NSObject {
                 presentingViewController.present(picker, animated: true, completion: nil)
             #else
                 let activityVC = UIActivityViewController(activityItems: [deletableItem], applicationActivities: nil)
-                activityVC.completionWithItemsHandler = { [weak self] _, _, _, _ in
-                    guard let self else { return }
-                    try? FileManager.default.removeItem(at: deletableItem)
+                activityVC.completionWithItemsHandler = { _, _, _, _ in
+                    self.cleanup()
                 }
                 if let popover = activityVC.popoverPresentationController {
                     popover.sourceView = toView
@@ -75,6 +81,15 @@ final class DisposableExporter: NSObject {
             #endif
         }
     }
+
+    private func retainSelf() {
+        Self.activeExporters[identifier] = self
+    }
+
+    private func cleanup() {
+        try? FileManager.default.removeItem(at: deletableItem)
+        Self.activeExporters.removeValue(forKey: identifier)
+    }
 }
 
 extension DisposableExporter: UIDocumentPickerDelegate {
@@ -82,11 +97,11 @@ extension DisposableExporter: UIDocumentPickerDelegate {
 
     #if targetEnvironment(macCatalyst)
         func documentPicker(_: UIDocumentPickerViewController, didPickDocumentsAt _: [URL]) {
-            try? FileManager.default.removeItem(at: deletableItem)
+            cleanup()
         }
 
         func documentPickerWasCancelled(_: UIDocumentPickerViewController) {
-            try? FileManager.default.removeItem(at: deletableItem)
+            cleanup()
         }
     #endif
 }
