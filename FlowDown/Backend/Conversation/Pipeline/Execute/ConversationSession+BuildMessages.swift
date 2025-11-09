@@ -49,6 +49,25 @@ extension ConversationSession {
             case .assistant:
                 guard !message.document.isEmpty else { continue }
                 requestMessages.append(.assistant(content: .text(message.document)))
+            case .webSearch:
+                let result = message.webSearchStatus.searchResults
+                let content = result.compactMap {
+                    """
+                    <title>\($0.title)</title>
+                    <url>\($0.url.absoluteString)</url>
+                    <content>\($0.toolResult)</content>
+                    """
+                }
+                requestMessages.append(.tool(
+                    content: .text(content.joined(separator: "\n")),
+                    toolCallID: message.id
+                ))
+            case .toolHint:
+                let content = message.toolStatus.message
+                requestMessages.append(.tool(
+                    content: .text(content),
+                    toolCallID: message.id
+                ))
             default:
                 continue
             }

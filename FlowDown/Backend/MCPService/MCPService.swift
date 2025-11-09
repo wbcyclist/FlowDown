@@ -64,9 +64,7 @@ class MCPService: NSObject {
         var errors: [Swift.Error] = []
         let snapshot = connections // for thread safety
         for (serverID, connection) in snapshot {
-            guard let server = server(with: serverID),
-                  server.isEnabled
-            else { continue }
+            guard let server = server(with: serverID), server.isEnabled else { continue }
             if connection.isConnected { continue }
             do {
                 try await MCPService.executor.run {
