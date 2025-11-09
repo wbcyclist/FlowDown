@@ -2102,7 +2102,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "选择新对话开始是使用的模型。"
+            "value" : "选择新对话开始时使用的模型。"
           }
         }
       }
