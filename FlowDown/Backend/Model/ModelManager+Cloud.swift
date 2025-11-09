@@ -136,28 +136,30 @@ extension ModelManager {
         for (key, value) in model.headers {
             request.setValue(value, forHTTPHeaderField: key)
         }
-        let block: ([String]) -> Void = { input in
-            DispatchQueue.main.async { block(input) }
+        let deliver: ([String]) -> Void = { input in
+            Task { @MainActor in
+                block(input)
+            }
         }
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 Logger.network.errorFile("[fetchModelList] request error: \(error!.localizedDescription)")
-                return block([])
+                return deliver([])
             }
             if let http = response as? HTTPURLResponse {
                 if http.statusCode != 200 {
                     Logger.network.errorFile("[fetchModelList] non-200 status: \(http.statusCode) for URL: \(url.absoluteString)")
                 }
             }
-            guard let data else { return block([]) }
+            guard let data else { return deliver([]) }
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
                 if let str = String(data: data, encoding: .utf8) {
                     Logger.network.errorFile("[fetchModelList] non-JSON response: \(str.prefix(256))...")
                 }
-                return block([])
+                return deliver([])
             }
             let value = self.scrubModel(fromDic: json).sorted()
-            block(value)
+            deliver(value)
         }.resume()
     }
 

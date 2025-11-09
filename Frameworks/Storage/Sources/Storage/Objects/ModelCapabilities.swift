@@ -8,16 +8,11 @@
 import Foundation
 
 public enum ModelCapabilities: String, Codable, CaseIterable, Equatable {
-//    case stream
     case visual
+    case auditory
     case tool
     case developerRole
 }
-
-//
-// Context Length Set
-// https://llmpricecheck.com/calculator/
-//
 
 public enum ModelContextLength: Int, Codable, CaseIterable, Equatable {
     case short_4k = 4000 // 4k

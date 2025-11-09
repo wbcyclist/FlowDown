@@ -8,7 +8,6 @@
 import Combine
 import Foundation
 import OrderedCollections
-import RichEditor
 import Storage
 
 extension ConversationManager {

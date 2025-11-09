@@ -171,12 +171,16 @@ def translate_missing(file_path):
 
 if __name__ == '__main__':
     # Default path to the Localizable.xcstrings file
-    default_file_path = os.path.join(
-        os.path.dirname(__file__), 
-        '..', '..', 
-        'FlowDown', 
-        'Resources', 
-        'Localizable.xcstrings'
+    default_file_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            '..',
+            '..',
+            '..',
+            'FlowDown',
+            'Resources',
+            'Localizable.xcstrings',
+        )
     )
     
     # Allow overriding the file path via command line argument

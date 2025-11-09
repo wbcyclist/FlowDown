@@ -136,7 +136,8 @@ public class Storage {
         db.purge()
         db.close()
         try? FileManager.default.removeItem(at: databaseDir)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        Task.detached {
+            try await Task.sleep(for: .seconds(1))
             exit(0)
         }
     }
@@ -225,7 +226,7 @@ private extension Storage {
 public extension Storage {
     /// 清理无效数据
     func clearDeletedRecords() {
-        DispatchQueue.global(qos: .utility).async { [weak self] in
+        Task.detached(priority: .utility) { [weak self] in
             guard let self else { return }
 
             let nowDate = Date.now
@@ -360,7 +361,7 @@ public extension Storage {
 
             Logger.database.info("Database migration has been successfully imported.")
 
-            DispatchQueue.main.async { [unowned self] in
+            Task { @MainActor [self] in
                 db.purge()
                 db.close()
 
@@ -392,7 +393,7 @@ public extension Storage {
                     if fm.fileExists(atPath: backupDatabaseDir.path) {
                         try? fm.moveItem(at: backupDatabaseDir, to: databaseDir)
                     }
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         completeHandler(.failure(error))
                     }
                 }
@@ -407,7 +408,7 @@ public extension Storage {
             Logger.database.info("clear import database tempDir \(tempDir, privacy: .public)")
             try? fm.removeItem(at: tempDir)
 
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 completeHandler(.failure(error))
             }
         }

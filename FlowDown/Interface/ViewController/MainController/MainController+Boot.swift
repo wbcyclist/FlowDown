@@ -41,14 +41,13 @@ extension MainController {
     }
 
     func queueNewConversation(text: String, shouldSend: Bool = false) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             let conversation = ConversationManager.shared.createNewConversation(autoSelect: true)
             Logger.app.infoFile("created new conversation ID: \(conversation.id)")
             guard shouldSend else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if self.chatView.conversationIdentifier == conversation.id {
-                    self.sendMessageToCurrentConversation(text)
-                }
+            try await Task.sleep(nanoseconds: 500_000_000)
+            if self.chatView.conversationIdentifier == conversation.id {
+                self.sendMessageToCurrentConversation(text)
             }
         }
     }

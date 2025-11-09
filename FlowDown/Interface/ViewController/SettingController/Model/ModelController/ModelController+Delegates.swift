@@ -108,8 +108,7 @@ extension SettingController.SettingContent.ModelController: UISearchControllerDe
 
 extension SettingController.SettingContent.ModelController: UIDocumentPickerDelegate {
     func documentPicker(_: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        let tempDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("DisposableResources")
+        let tempDir = disposableResourcesDir
             .appendingPathComponent(UUID().uuidString)
         try? FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
         for url in urls {
@@ -148,8 +147,7 @@ extension SettingController.SettingContent.ModelController {
         guard itemIdentifier.type == .cloud,
               let model = ModelManager.shared.cloudModel(identifier: itemIdentifier.identifier) else { return }
 
-        let tempFileDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("DisposableResources")
+        let tempFileDir = disposableResourcesDir
             .appendingPathComponent(UUID().uuidString)
         let modelName = model.modelDisplayName
         let tempFile = tempFileDir

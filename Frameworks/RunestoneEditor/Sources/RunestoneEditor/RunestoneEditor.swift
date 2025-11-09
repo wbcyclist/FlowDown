@@ -60,9 +60,9 @@ public extension RunestoneEditorView {
     }
 
     func applyAsync(language: TreeSitterLanguage, text: String, completion: @escaping () -> Void) {
-        DispatchQueue.global().async {
+        Task.detached {
             let state: TextViewState = .init(text: text, language: language)
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.setState(state)
                 completion()
             }

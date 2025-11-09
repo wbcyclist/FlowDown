@@ -108,7 +108,7 @@ extension UITextSearchingHelper: UITextSearching {
         performTextSearch(for: queryString, options: options) { searchResults in
             let replacements = searchResults.map { BatchReplaceSet.Replacement(range: $0.range, text: replacementText) }
             let batchReplaceSet = BatchReplaceSet(replacements: replacements)
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 self._textView.replaceText(in: batchReplaceSet)
             }
         }

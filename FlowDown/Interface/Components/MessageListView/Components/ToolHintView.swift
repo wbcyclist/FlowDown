@@ -4,7 +4,6 @@
 //
 
 import GlyphixTextFx
-import RichEditor
 import UIKit
 
 final class ToolHintView: MessageListRowView {
@@ -44,7 +43,7 @@ final class ToolHintView: MessageListRowView {
         $0.contentMode = .scaleAspectFit
     }
 
-    private let decoratedView: UIImageView = .init(image: richEditorIcon(named: "tools"))
+    private let decoratedView: UIImageView = .init(image: .init(named: "tools"))
     private var isClickable: Bool = false
 
     override init(frame: CGRect) {
@@ -59,7 +58,6 @@ final class ToolHintView: MessageListRowView {
         contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 12
         contentView.layer.cornerCurve = .continuous
-//        contentView.clipsToBounds = true
         contentView.layer.insertSublayer(backgroundGradientLayer, at: 0)
         contentView.addSubview(decoratedView)
         contentView.addSubview(symbolView)

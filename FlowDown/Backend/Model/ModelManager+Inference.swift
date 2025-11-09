@@ -566,6 +566,7 @@ extension ModelManager {
                         switch part {
                         case let .text(text): estimatedInferenceText += text
                         case .imageURL: estimatedAdditionalTokens += 512
+                        case .audioBase64: estimatedAdditionalTokens += 1024
                         }
                     }
                 }

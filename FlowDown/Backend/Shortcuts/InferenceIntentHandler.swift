@@ -8,7 +8,6 @@
 import AppIntents
 import ChatClientKit
 import Foundation
-import RichEditor
 import Storage
 import UIKit
 
@@ -340,12 +339,5 @@ enum InferenceIntentHandler {
                 Logger.model.errorFile("Memory tool \(tool.functionName) failed: \(error.localizedDescription)")
             }
         }
-    }
-}
-
-private extension String {
-    var nilIfEmpty: String? {
-        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? nil : trimmed
     }
 }

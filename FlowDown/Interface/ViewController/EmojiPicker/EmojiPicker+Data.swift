@@ -70,7 +70,7 @@ extension EmojiPickerView {
     }
 
     func reloadWithAnimation(with target: [EmojiSection]) {
-        DispatchQueue.main.async { [self] in
+        Task { @MainActor [self] in
             dataSource = target
             collectionView.reloadData()
         }

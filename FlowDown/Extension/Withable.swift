@@ -9,7 +9,7 @@ import Foundation
 
 public protocol Withable {}
 
-public extension Withable where Self: Any {
+extension Withable where Self: Any {
     @inlinable
     @discardableResult
     func with(_ block: (inout Self) throws -> Void) rethrows -> Self {
@@ -24,7 +24,7 @@ public extension Withable where Self: Any {
     }
 }
 
-public extension Withable where Self: AnyObject {
+extension Withable where Self: AnyObject {
     @inlinable
     @discardableResult
     func with(_ block: (Self) throws -> Void) rethrows -> Self {

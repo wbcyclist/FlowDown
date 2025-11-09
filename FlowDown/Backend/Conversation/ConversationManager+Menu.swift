@@ -135,7 +135,7 @@ extension ConversationManager {
                         controller: controller
                     ) { completion in
                         let image = await withCheckedContinuation { continuation in
-                            DispatchQueue.main.async {
+                            Task { @MainActor in
                                 captureView.capture(controller: controller) { image in
                                     continuation.resume(returning: image)
                                 }

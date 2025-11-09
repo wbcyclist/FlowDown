@@ -154,7 +154,8 @@ class ConversationCaptureView: UIView {
             controller.view.layoutIfNeeded()
             layoutIfNeeded()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            Task { @MainActor in
+                try await Task.sleep(for: .seconds(1))
                 let finalSize = CGSize(width: self.layoutWidth, height: finalHeight)
                 let format = UIGraphicsImageRendererFormat.default()
                 format.scale = UIScreen.main.scale
@@ -166,9 +167,8 @@ class ConversationCaptureView: UIView {
                     self.layer.render(in: context.cgContext)
                 }
                 completion(image)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.removeFromSuperview()
-                }
+                try await Task.sleep(for: .seconds(1))
+                self.removeFromSuperview()
             }
         }
     }
@@ -215,12 +215,13 @@ private extension ConversationCaptureView {
             }
 
             previousHeight = contentHeight
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            Task { @MainActor in
+                try await Task.sleep(for: .milliseconds(100))
                 evaluate()
             }
         }
 
-        DispatchQueue.main.async { evaluate() }
+        Task { @MainActor in evaluate() }
     }
 
     func calculateRenderedHeight(listHeight: CGFloat) -> CGFloat {

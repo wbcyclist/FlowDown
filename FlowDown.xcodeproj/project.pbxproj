@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		50014D7F2D8A9B3C00C10932 /* GlyphixTextFx in Frameworks */ = {isa = PBXBuildFile; productRef = 50014D7E2D8A9B3C00C10932 /* GlyphixTextFx */; };
 		500373C52D62757700585574 /* ScrubberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 500373C42D62757700585574 /* ScrubberKit */; };
-		501C98E12D3E52CE00CD8E11 /* RichEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 501C98E02D3E52CE00CD8E11 /* RichEditor */; };
 		502272D22EB3DE3200AF9D28 /* UIEffectKit in Frameworks */ = {isa = PBXBuildFile; productRef = 502272D12EB3DE3200AF9D28 /* UIEffectKit */; };
 		502BCBD12D43DB2B00500180 /* ConfigurableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 502BCBD02D43DB2B00500180 /* ConfigurableKit */; };
 		50383CEA2D2E1E0D00426941 /* BetterCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 50383CE92D2E1E0D00426941 /* BetterCodable */; };
@@ -22,6 +21,8 @@
 		505BC6F92D42A73600894BB0 /* AlertController in Frameworks */ = {isa = PBXBuildFile; productRef = 505BC6F82D42A73600894BB0 /* AlertController */; };
 		505FC6192D4945E500F4CB17 /* SPIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 505FC6182D4945E500F4CB17 /* SPIndicator */; };
 		505FC65B2D4A754F00F4CB17 /* MLXVLM in Frameworks */ = {isa = PBXBuildFile; productRef = 505FC65A2D4A754F00F4CB17 /* MLXVLM */; };
+		506373A12EC0D6E200C8A9FB /* AlignedCollectionViewFlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 506373A02EC0D6E200C8A9FB /* AlignedCollectionViewFlowLayout */; };
+		506373A62EC0DC7900C8A9FB /* ColorfulX in Frameworks */ = {isa = PBXBuildFile; productRef = 506373A52EC0DC7900C8A9FB /* ColorfulX */; };
 		506C93CB2EBE4BBC00CB87A9 /* PrivacyPolicy.md in Resources */ = {isa = PBXBuildFile; fileRef = 506C93C92EBE4BBC00CB87A9 /* PrivacyPolicy.md */; };
 		506C93CC2EBE4BBC00CB87A9 /* Emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = 506C93C52EBE4BBC00CB87A9 /* Emoji.json */; };
 		506C93CD2EBE4BBC00CB87A9 /* OpenSourceLicenses.md in Resources */ = {isa = PBXBuildFile; fileRef = 506C93C62EBE4BBC00CB87A9 /* OpenSourceLicenses.md */; };
@@ -42,6 +43,16 @@
 		EDF9A13E2D67788A001D183C /* Respring in Frameworks */ = {isa = PBXBuildFile; productRef = EDF9A13D2D67788A001D183C /* Respring */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		50D757BE2EC10A4400AEC087 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 503498B52D23053D004672BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 503498BC2D23053D004672BD;
+			remoteInfo = FlowDown;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		503498BD2D23053D004672BD /* FlowDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506C93C52EBE4BBC00CB87A9 /* Emoji.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Emoji.json; sourceTree = "<group>"; };
@@ -50,6 +61,7 @@
 		506C93C82EBE4BBC00CB87A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "zh-Hans"; path = "zh-Hans.lproj/PrivacyPolicy.md"; sourceTree = "<group>"; };
 		50B5146A2D2305F20092284C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		50D6CB1C2EBDFCB50037488A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		50D757BA2EC10A4400AEC087 /* FlowDownUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlowDownUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -107,6 +119,11 @@
 			path = PlatformSupport;
 			sourceTree = "<group>";
 		};
+		50D757BB2EC10A4400AEC087 /* FlowDownUnitTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FlowDownUnitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,12 +132,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDF9A13E2D67788A001D183C /* Respring in Frameworks */,
+				506373A62EC0DC7900C8A9FB /* ColorfulX in Frameworks */,
 				50FBFC6C2DEA2E5400098EC4 /* XMLCoder in Frameworks */,
 				50B4CDAC2D4794F90028EB33 /* Digger in Frameworks */,
 				50C9035B2D428DAD00E6E3A8 /* Storage in Frameworks */,
-				501C98E12D3E52CE00CD8E11 /* RichEditor in Frameworks */,
 				505FC6192D4945E500F4CB17 /* SPIndicator in Frameworks */,
 				505742472E1B8B8100A26090 /* DpkgVersion in Frameworks */,
+				506373A12EC0D6E200C8A9FB /* AlignedCollectionViewFlowLayout in Frameworks */,
 				5050EB0B2D46DCB900634B81 /* MLXLMCommon in Frameworks */,
 				50E3FA092D6D7FB8000405BD /* GPTEncoder in Frameworks */,
 				5050EACF2D46D41400634B81 /* MLX in Frameworks */,
@@ -146,6 +164,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50D757B72EC10A4400AEC087 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -161,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				50B5145B2D2305890092284C /* FlowDown */,
+				50D757BB2EC10A4400AEC087 /* FlowDownUnitTests */,
 				503498BE2D23053D004672BD /* Products */,
 				502BCBCF2D43DB2B00500180 /* Frameworks */,
 			);
@@ -170,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				503498BD2D23053D004672BD /* FlowDown.app */,
+				50D757BA2EC10A4400AEC087 /* FlowDownUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,7 +259,6 @@
 				50B5149A2D2316EC0092284C /* SwifterSwift */,
 				507849692D285B5900B1F430 /* MarkdownView */,
 				50383CE92D2E1E0D00426941 /* BetterCodable */,
-				501C98E02D3E52CE00CD8E11 /* RichEditor */,
 				50C9035A2D428DAD00E6E3A8 /* Storage */,
 				505BC6F82D42A73600894BB0 /* AlertController */,
 				502BCBD02D43DB2B00500180 /* ConfigurableKit */,
@@ -257,10 +283,35 @@
 				86B4FDC12E1190C000C6DC8F /* MCP */,
 				505742462E1B8B8100A26090 /* DpkgVersion */,
 				502272D12EB3DE3200AF9D28 /* UIEffectKit */,
+				506373A02EC0D6E200C8A9FB /* AlignedCollectionViewFlowLayout */,
+				506373A52EC0DC7900C8A9FB /* ColorfulX */,
 			);
 			productName = FlowDown;
 			productReference = 503498BD2D23053D004672BD /* FlowDown.app */;
 			productType = "com.apple.product-type.application";
+		};
+		50D757B92EC10A4400AEC087 /* FlowDownUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50D757C02EC10A4400AEC087 /* Build configuration list for PBXNativeTarget "FlowDownUnitTests" */;
+			buildPhases = (
+				50D757B62EC10A4400AEC087 /* Sources */,
+				50D757B72EC10A4400AEC087 /* Frameworks */,
+				50D757B82EC10A4400AEC087 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50D757BF2EC10A4400AEC087 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				50D757BB2EC10A4400AEC087 /* FlowDownUnitTests */,
+			);
+			name = FlowDownUnitTests;
+			packageProductDependencies = (
+			);
+			productName = FlowDownUnitTests;
+			productReference = 50D757BA2EC10A4400AEC087 /* FlowDownUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -269,11 +320,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 2610;
 				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					503498BC2D23053D004672BD = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					50D757B92EC10A4400AEC087 = {
+						CreatedOnToolsVersion = 26.1;
+						TestTargetID = 503498BC2D23053D004672BD;
 					};
 				};
 			};
@@ -309,12 +364,15 @@
 				86B4FDBE2E1190AD00C6DC8F /* XCRemoteSwiftPackageReference "swift-sdk" */,
 				505742432E1B8B2A00A26090 /* XCRemoteSwiftPackageReference "DpkgVersion" */,
 				502272D02EB3DE3200AF9D28 /* XCRemoteSwiftPackageReference "UIEffectKit" */,
+				5063739F2EC0D6E200C8A9FB /* XCRemoteSwiftPackageReference "AlignedCollectionViewFlowLayout" */,
+				506373A42EC0DC7900C8A9FB /* XCRemoteSwiftPackageReference "ColorfulX" */,
 			);
 			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				503498BC2D23053D004672BD /* FlowDown */,
+				50D757B92EC10A4400AEC087 /* FlowDownUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -327,6 +385,13 @@
 				506C93CB2EBE4BBC00CB87A9 /* PrivacyPolicy.md in Resources */,
 				506C93CC2EBE4BBC00CB87A9 /* Emoji.json in Resources */,
 				506C93CD2EBE4BBC00CB87A9 /* OpenSourceLicenses.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50D757B82EC10A4400AEC087 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +428,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50D757B62EC10A4400AEC087 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		50D757BF2EC10A4400AEC087 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 503498BC2D23053D004672BD /* FlowDown */;
+			targetProxy = 50D757BE2EC10A4400AEC087 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		506C93C92EBE4BBC00CB87A9 /* PrivacyPolicy.md */ = {
@@ -429,7 +509,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
-				MARKETING_VERSION = 3.12.0;
+				MARKETING_VERSION = 4.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -495,7 +575,7 @@
 					"@executable_path/Frameworks",
 				);
 				LOCALIZED_STRING_SWIFTUI_SUPPORT = YES;
-				MARKETING_VERSION = 3.12.0;
+				MARKETING_VERSION = 4.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -639,6 +719,50 @@
 			};
 			name = Release;
 		};
+		50D757C12EC10A4400AEC087 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 964G86XT2P;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = wiki.qaq.FlowDownUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlowDown.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FlowDown";
+			};
+			name = Debug;
+		};
+		50D757C22EC10A4400AEC087 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 964G86XT2P;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = wiki.qaq.FlowDownUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlowDown.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FlowDown";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -656,6 +780,15 @@
 			buildConfigurations = (
 				503498D12D23053E004672BD /* Debug */,
 				503498D22D23053E004672BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50D757C02EC10A4400AEC087 /* Build configuration list for PBXNativeTarget "FlowDownUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50D757C12EC10A4400AEC087 /* Debug */,
+				50D757C22EC10A4400AEC087 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -751,6 +884,22 @@
 				minimumVersion = 1.6.5;
 			};
 		};
+		5063739F2EC0D6E200C8A9FB /* XCRemoteSwiftPackageReference "AlignedCollectionViewFlowLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mischa-hildebrand/AlignedCollectionViewFlowLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
+			};
+		};
+		506373A42EC0DC7900C8A9FB /* XCRemoteSwiftPackageReference "ColorfulX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Lakr233/ColorfulX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.1;
+			};
+		};
 		50A350B92DE4B5C3008F094E /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Lakr233/MarkdownView";
@@ -843,10 +992,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = ScrubberKit;
 		};
-		501C98E02D3E52CE00CD8E11 /* RichEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RichEditor;
-		};
 		502272D12EB3DE3200AF9D28 /* UIEffectKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 502272D02EB3DE3200AF9D28 /* XCRemoteSwiftPackageReference "UIEffectKit" */;
@@ -904,6 +1049,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5050EB072D46DC9300634B81 /* XCRemoteSwiftPackageReference "mlx-swift-examples" */;
 			productName = MLXVLM;
+		};
+		506373A02EC0D6E200C8A9FB /* AlignedCollectionViewFlowLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5063739F2EC0D6E200C8A9FB /* XCRemoteSwiftPackageReference "AlignedCollectionViewFlowLayout" */;
+			productName = AlignedCollectionViewFlowLayout;
+		};
+		506373A52EC0DC7900C8A9FB /* ColorfulX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 506373A42EC0DC7900C8A9FB /* XCRemoteSwiftPackageReference "ColorfulX" */;
+			productName = ColorfulX;
 		};
 		507849692D285B5900B1F430 /* MarkdownView */ = {
 			isa = XCSwiftPackageProductDependency;

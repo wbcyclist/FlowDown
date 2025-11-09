@@ -139,6 +139,7 @@ class ModelToolsManager {
         struct Attachment: Equatable, Hashable, Codable, Sendable {
             let name: String
             let data: Data
+            let mimeType: String?
         }
 
         let imageAttachments: [Attachment]
@@ -236,7 +237,7 @@ class ModelToolsManager {
         if let value = try? [Tool.Content].decodeContents(ans) {
             var textContent: [String] = []
             var imageAttachments: [ToolResultContents.Attachment] = []
-//            var audioAttachments: [ToolResultContents.Attachment] = []
+            var audioAttachments: [ToolResultContents.Attachment] = []
             for content in value {
                 switch content {
                 case let .text(string):
@@ -251,15 +252,27 @@ class ModelToolsManager {
                     if let data = parseDataFromString(dataString), UIImage(data: data) != nil {
                         imageAttachments.append(.init(
                             name: name,
-                            data: data
+                            data: data,
+                            mimeType: mimeType.nilIfEmpty
                         ))
                     } else {
                         Logger.model.errorFile("failed to parse image data from string")
                     }
                 case let .audio(dataString, mimeType):
-                    // TODO: Convert audio to m4a format with compression
-                    _ = dataString
-                    _ = mimeType
+                    var name = String(localized: "Tool Provided Audio")
+                    if !mimeType.isEmpty {
+                        name += " " + mimeType
+                    }
+                    name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if let data = parseDataFromString(dataString) {
+                        audioAttachments.append(.init(
+                            name: name,
+                            data: data,
+                            mimeType: mimeType.nilIfEmpty
+                        ))
+                    } else {
+                        Logger.model.errorFile("failed to parse audio data from string")
+                    }
                 case let .resource(uri, mimeType, text):
                     textContent.append("[\(text ?? "Resource") \(mimeType)](\(uri))")
                 }
@@ -267,7 +280,7 @@ class ModelToolsManager {
             return .init(
                 text: textContent.joined(separator: "\n"),
                 imageAttachments: imageAttachments,
-                audioAttachments: [] // audioAttachments
+                audioAttachments: audioAttachments
             )
         } else {
             return .init(text: ans, imageAttachments: [], audioAttachments: [])

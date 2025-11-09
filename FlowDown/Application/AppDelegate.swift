@@ -12,7 +12,6 @@ import ConfigurableKit
 import MarkdownView
 import MLX
 import MLXLMCommon
-import RichEditor
 import ScrubberKit
 import Storage
 import UIKit
@@ -43,9 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AlertControllerConfiguration.separatorColor = SeparatorView.color
 
         templateMenuCancellable = ChatTemplateManager.shared.$templates
-            .receive(on: DispatchQueue.main)
             .sink { _ in
-                UIMenuSystem.main.setNeedsRebuild()
+                Task { @MainActor in
+                    UIMenuSystem.main.setNeedsRebuild()
+                }
             }
 
         application.registerForRemoteNotifications()

@@ -38,6 +38,7 @@ extension ModelCapabilities {
         case .tool: "hammer"
 //        case .reasoning: "text.bubble"
         case .developerRole: "person.crop.circle.badge.checkmark"
+        case .auditory: "waveform"
         }
     }
 
@@ -46,6 +47,7 @@ extension ModelCapabilities {
         case .visual: "Visual"
         case .tool: "Tool"
         case .developerRole: "Developer Role"
+        case .auditory: "Audio"
         }
     }
 
@@ -54,6 +56,7 @@ extension ModelCapabilities {
         case .visual: "Visual model can be used for image recognition."
         case .tool: "This model can use client provided tools."
         case .developerRole: "This model requires developer role when dealing with prompt."
+        case .auditory: "This model can process audio attachments."
         }
     }
 }
@@ -243,7 +246,7 @@ extension ModelManager {
         try? FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true, attributes: nil)
         let cleanUpBlock: () -> Void = { try? FileManager.default.removeItem(at: tempDir) }
         let zipFile = tempDir.appendingPathComponent(item).appendingPathExtension("zip")
-        DispatchQueue.global().async {
+        Task.detached {
             do {
                 let copy = tempDir.appendingPathComponent("Export-\(item)")
                 try FileManager.default.copyItem(at: url, to: copy)
@@ -267,8 +270,7 @@ extension ModelManager {
                 NSLocalizedDescriptionKey: String(localized: "Your device does not support MLX."),
             ]))
         }
-        let tempDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("DisposableResources")
+        let tempDir = disposableResourcesDir
             .appendingPathComponent(UUID().uuidString)
         try? FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true, attributes: nil)
         defer { try? FileManager.default.removeItem(at: tempDir) }

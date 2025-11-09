@@ -8,7 +8,6 @@
 import Combine
 import ConfigurableKit
 import Foundation
-import RichEditor
 
 extension EditorBehavior {
     static let pasteAsFileStorageKey = "app.editor.paste.as.file"

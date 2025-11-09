@@ -83,7 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let data = try Data(contentsOf: url)
             let decoder = PropertyListDecoder()
             let template = try decoder.decode(ChatTemplate.self, from: data)
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 ChatTemplateManager.shared.addTemplate(template)
             }
             mainController.queueBootMessage(text: String(localized: "Successfully imported \(template.name)"))
@@ -101,7 +101,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let data = try Data(contentsOf: url)
             let decoder = PropertyListDecoder()
             let server = try decoder.decode(ModelContextServer.self, from: data)
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 MCPService.shared.insert(server)
             }
             let serverName = if let serverUrl = URL(string: server.endpoint), let host = serverUrl.host {

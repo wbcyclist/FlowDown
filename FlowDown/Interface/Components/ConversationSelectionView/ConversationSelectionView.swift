@@ -162,7 +162,7 @@ class ConversationSelectionView: UIView {
 
         dataSource.apply(snapshot, animatingDifferences: true)
 
-        DispatchQueue.main.async { [self] in
+        Task { @MainActor [self] in
             var snapshot = dataSource.snapshot()
             let visibleRows = tableView.indexPathsForVisibleRows ?? []
             let visibleItemIdentifiers = visibleRows

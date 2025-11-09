@@ -147,7 +147,8 @@ extension WebSearchStateView {
             addSubview(progressBar)
 
             progressBar.alpha = 0
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            Task { @MainActor in
+                try await Task.sleep(for: .milliseconds(250))
                 self.doWithAnimation {
                     self.progressBar.alpha = 1
                 }

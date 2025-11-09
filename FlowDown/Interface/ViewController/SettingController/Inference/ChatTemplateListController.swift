@@ -88,7 +88,7 @@ class ChatTemplateListController: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(items)
         dataSource.apply(snapshot, animatingDifferences: animated)
-        DispatchQueue.main.async { [self] in
+        Task { @MainActor [self] in
             var snapshot = dataSource.snapshot()
             snapshot.reconfigureItems(tableView.indexPathsForVisibleRows?.compactMap {
                 dataSource.itemIdentifier(for: $0)
@@ -106,9 +106,10 @@ class ChatTemplateListController: UIViewController {
                         template.name = String(localized: "Template \(ChatTemplateManager.shared.templates.count + 1)")
                         ChatTemplateManager.shared.addTemplate(template)
 
-                        DispatchQueue.main.async {
+                        Task { @MainActor [weak self] in
+                            guard let self else { return }
                             let controller = ChatTemplateEditorController(templateIdentifier: template.id)
-                            self?.navigationController?.pushViewController(controller, animated: true)
+                            navigationController?.pushViewController(controller, animated: true)
                         }
                     },
                 ]),
@@ -368,7 +369,7 @@ extension ChatTemplateListController: UITableViewDragDelegate, UITableViewDropDe
                         do {
                             let decoder = PropertyListDecoder()
                             let template = try decoder.decode(ChatTemplate.self, from: data)
-                            DispatchQueue.main.async {
+                            Task { @MainActor in
                                 ChatTemplateManager.shared.addTemplate(template)
                             }
                         } catch {

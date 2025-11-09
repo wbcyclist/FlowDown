@@ -161,13 +161,6 @@ enum SearchConversationsIntentHelper {
     }
 }
 
-private extension String {
-    var nilIfEmpty: String? {
-        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? nil : trimmed
-    }
-}
-
 private extension Message {
     func matches(keyword: String) -> Bool {
         let lowercasedKeyword = keyword.lowercased()

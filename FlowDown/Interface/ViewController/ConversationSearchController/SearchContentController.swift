@@ -103,7 +103,8 @@ class SearchContentController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        Task { @MainActor in
+            try await Task.sleep(for: .milliseconds(100))
             self.searchController.searchBar.becomeFirstResponder()
         }
     }
@@ -120,7 +121,7 @@ class SearchContentController: UIViewController {
         searchQueue.async { [weak self] in
             guard let self, currentSearchToken == token else { return }
             let searchResults = ConversationManager.shared.searchConversations(query: query)
-            DispatchQueue.main.async { [weak self] in
+            Task { @MainActor [weak self] in
                 guard let self, currentSearchToken == token else { return }
                 self.searchResults = searchResults
             }
@@ -131,7 +132,8 @@ class SearchContentController: UIViewController {
         guard !searchResults.isEmpty else { return }
         guard let selectionIndexPath = focusedIndexPath else { return }
         tableView.cellForRow(at: selectionIndexPath)?.puddingAnimate()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        Task { @MainActor in
+            try await Task.sleep(for: .milliseconds(100))
             self.selectResultAndDismiss(at: selectionIndexPath)
         }
     }

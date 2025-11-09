@@ -341,7 +341,8 @@ extension SettingController.SettingContent {
                                 sdb.reset()
                                 // close the app
                                 UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                Task.detached {
+                                    try await Task.sleep(for: .seconds(1))
                                     exit(0)
                                 }
                             }
@@ -439,9 +440,7 @@ extension SettingController.SettingContent {
                         context.addAction(title: "OK", attribute: .accent) {
                             SyncEngine.resetCachedState()
                             context.dispose {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    exit(0)
-                                }
+                                exit(0)
                             }
                         }
                     }

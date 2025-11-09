@@ -10,8 +10,8 @@ import Foundation
 import Storage
 
 @MainActor
-public class MemoryStore: ObservableObject {
-    public static let shared = MemoryStore()
+class MemoryStore: ObservableObject {
+    static let shared = MemoryStore()
 
     private let queue = DispatchQueue(label: "wiki.qaq.MemoryStore", qos: .utility)
     private let maxMemoryCount = 1000
@@ -383,7 +383,7 @@ public class MemoryStore: ObservableObject {
 
 // MARK: - Error Types
 
-public enum MemoryStoreError: Error, LocalizedError {
+enum MemoryStoreError: Error, LocalizedError {
     case invalidContent(String)
     case memoryNotFound(String)
     case storageError(String)

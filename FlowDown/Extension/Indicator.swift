@@ -16,7 +16,7 @@ enum Indicator {
         if Thread.isMainThread {
             execute()
         } else {
-            DispatchQueue.main.asyncAndWait {
+            Task { @MainActor in
                 execute()
             }
         }

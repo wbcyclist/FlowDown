@@ -71,7 +71,8 @@ import UIKit
 
             override func viewWillAppear(_ animated: Bool) {
                 super.viewWillAppear(animated)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                Task { @MainActor in
+                    try await Task.sleep(for: .milliseconds(100))
                     UIView.animate(withDuration: 0.25) {
                         self.view.alpha = 1
                     }

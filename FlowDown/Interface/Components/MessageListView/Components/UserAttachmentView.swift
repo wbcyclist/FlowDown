@@ -3,7 +3,6 @@
 //  Copyright (c) 2025 ktiays. All rights reserved.
 //
 
-import RichEditor
 import UIKit
 
 final class UserAttachmentView: MessageListRowView {

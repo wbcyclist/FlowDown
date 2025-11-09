@@ -7,8 +7,8 @@
 
 import UIKit
 
-public class AutoLayoutMarginView: UIView {
-    public var viewInsets: UIEdgeInsets {
+class AutoLayoutMarginView: UIView {
+    var viewInsets: UIEdgeInsets {
         didSet {
             viewTopConstraint?.constant = viewInsets.top
             viewLeadingConstraint?.constant = viewInsets.left
@@ -24,7 +24,7 @@ public class AutoLayoutMarginView: UIView {
     var viewBottomConstraint: NSLayoutConstraint?
     var viewTrailingConstraint: NSLayoutConstraint?
 
-    public init(_ view: UIView, insets: UIEdgeInsets = defaultMargin) {
+    init(_ view: UIView, insets: UIEdgeInsets = defaultMargin) {
         viewInsets = insets
         super.init(frame: .zero)
         addSubview(view)
@@ -51,7 +51,7 @@ public class AutoLayoutMarginView: UIView {
 @usableFromInline
 let defaultMargin = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
-public extension UIStackView {
+extension UIStackView {
     @discardableResult
     func addArrangedSubviewWithMargin(_ view: UIView, adjustMargin: (inout UIEdgeInsets) -> Void = { _ in }) -> UIView {
         var margin = defaultMargin

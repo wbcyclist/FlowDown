@@ -226,13 +226,18 @@ final class MessageListView: UIView {
         let shouldScrolling = scrolling && isAutoScrollingToBottom
 
         entryCount = entries.count
-        DispatchQueue.main.asyncAndWait {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             if isFirstLoad || alpha == 0 {
                 isFirstLoad = false
                 dataSource.applySnapshot(using: entries, animatingDifferences: false)
                 listView.setContentOffset(.init(x: 0, y: listView.maximumContentOffset.y), animated: false)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    UIView.animate(withDuration: 0.25) { self.alpha = 1 }
+                Task { [weak self] in
+                    try? await Task.sleep(for: .seconds(0.1))
+                    await MainActor.run {
+                        guard let self else { return }
+                        UIView.animate(withDuration: 0.25) { self.alpha = 1 }
+                    }
                 }
             } else {
                 dataSource.applySnapshot(using: entries, animatingDifferences: true)

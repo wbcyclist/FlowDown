@@ -88,7 +88,7 @@ extension SettingController.SettingContent {
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             MCPService.shared.updateFromDatabase()
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.tableView.reloadData()
             }
         }
@@ -316,7 +316,7 @@ extension SettingController.SettingContent.MCPController: UITableViewDragDelegat
                     do {
                         let decoder = PropertyListDecoder()
                         let server = try decoder.decode(ModelContextServer.self, from: data)
-                        DispatchQueue.main.async {
+                        Task { @MainActor in
                             MCPService.shared.insert(server)
                         }
                     } catch {
@@ -332,8 +332,7 @@ extension SettingController.SettingContent.MCPController {
     func exportServer(_ serverId: ModelContextServer.ID) {
         guard let server = MCPService.shared.server(with: serverId) else { return }
 
-        let tempFileDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("DisposableResources")
+        let tempFileDir = disposableResourcesDir
             .appendingPathComponent(UUID().uuidString)
         let serverName = if let url = URL(string: server.endpoint), let host = url.host {
             host

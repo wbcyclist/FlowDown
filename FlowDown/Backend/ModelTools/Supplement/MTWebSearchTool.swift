@@ -8,7 +8,6 @@
 import ChatClientKit
 import ConfigurableKit
 import Foundation
-import RichEditor
 @preconcurrency import ScrubberKit
 import Storage
 import UIKit

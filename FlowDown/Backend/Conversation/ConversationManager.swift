@@ -9,7 +9,6 @@ import Combine
 import ConfigurableKit
 import Foundation
 import OrderedCollections
-import RichEditor
 import Storage
 import UIKit
 
@@ -60,9 +59,10 @@ class ConversationManager: NSObject {
     }
 
     @objc private func saveObjects() {
-        DispatchQueue.global().async {
-            self._temporaryEditorObjects = self.temporaryEditorObjects
-            Logger.app.infoFile("\(self.temporaryEditorObjects.count) temporary editor objects saved.")
+        Task.detached { [weak self] in
+            guard let self else { return }
+            _temporaryEditorObjects = temporaryEditorObjects
+            Logger.app.infoFile("\(temporaryEditorObjects.count) temporary editor objects saved.")
         }
     }
 }

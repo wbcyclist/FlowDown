@@ -36,6 +36,11 @@ import Storage
 
 let logger = Logger.app
 _ = LogStore.shared
+
+let disposableResourcesDir = FileManager.default
+    .temporaryDirectory
+    .appendingPathComponent("DisposableResources")
+
 import ConfigurableKit
 import MLX
 
@@ -75,11 +80,8 @@ _ = ModelToolsManager.shared
 _ = ConversationManager.shared
 _ = MCPService.shared
 
-DispatchQueue.global().async {
-    let clean = FileManager.default
-        .temporaryDirectory
-        .appendingPathComponent("DisposableResources")
-    try? FileManager.default.removeItem(at: clean)
+Task.detached(priority: .background) {
+    try? FileManager.default.removeItem(at: disposableResourcesDir)
 }
 
 #if os(macOS) || targetEnvironment(macCatalyst)

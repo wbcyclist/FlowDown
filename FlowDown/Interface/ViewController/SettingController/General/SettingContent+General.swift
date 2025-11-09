@@ -10,7 +10,6 @@ import ConfigurableKit
 import Digger
 import MarkdownView
 import MLX
-import RichEditor
 import Storage
 import UIKit
 

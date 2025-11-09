@@ -42,49 +42,52 @@ class HubModelDetailController: StackScrollController {
 
         markdownContainerView.clipsToBounds = true
 
-        let task = Task.detached {
+        let task = Task.detached { [weak self] in
             assert(!Thread.isMainThread)
             let data = try await URLSession.shared.data(from: url).0
             assert(!Thread.isMainThread)
-            guard var markdown = String(data: data, encoding: .utf8) else { return }
+            guard let markdown = String(data: data, encoding: .utf8) else { return }
             // remove embedded yaml tags
             let yamlBlockPattern = #"(?m)(?s)^(?:---)(.*?)(?:---|\.\.\.)"#
-            markdown = markdown.replacingOccurrences(of: yamlBlockPattern, with: "", options: .regularExpression)
+            let sanitizedMarkdown = markdown.replacingOccurrences(
+                of: yamlBlockPattern,
+                with: "",
+                options: .regularExpression
+            )
 
-            DispatchQueue.global().async {
-                self.setMarkdownContent(markdown)
+            await MainActor.run { [weak self] in
+                self?.setMarkdownContent(sanitizedMarkdown)
             }
         }
         self.task = task
     }
 
+    @MainActor
     func setMarkdownContent(_ markdown: String) {
         let result = MarkdownParser().parse(markdown)
         var theme = MarkdownTheme()
         theme.align(to: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
         let package = MarkdownTextView.PreprocessedContent(parserResult: result, theme: theme)
-        DispatchQueue.main.async {
-            let markdownView = MarkdownTextView().with {
-                $0.theme = theme
-                $0.bindContentOffset(from: self.scrollView)
-                $0.setMarkdownManually(package)
-                $0.alpha = 0
+        let markdownView = MarkdownTextView().with {
+            $0.theme = theme
+            $0.bindContentOffset(from: scrollView)
+            $0.setMarkdownManually(package)
+            $0.alpha = 0
+        }
+        markdownContainerView.addSubview(markdownView)
+        markdownView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        view.doWithAnimation { [self] in
+            requiresUpdateHeight = true
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+        } completion: { [self] in
+            indicator.stopAnimating()
+            UIView.animate(withDuration: 0.3) {
+                markdownView.alpha = 1
             }
-            self.markdownContainerView.addSubview(markdownView)
-            markdownView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
-            self.view.doWithAnimation {
-                self.requiresUpdateHeight = true
-                self.view.setNeedsLayout()
-                self.view.layoutIfNeeded()
-            } completion: {
-                self.indicator.stopAnimating()
-                UIView.animate(withDuration: 0.3) {
-                    markdownView.alpha = 1
-                }
-                markdownView.setNeedsLayout()
-            }
+            markdownView.setNeedsLayout()
         }
     }
 

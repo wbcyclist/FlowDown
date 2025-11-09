@@ -92,7 +92,7 @@ extension MainController {
                         view.doWithAnimation { self.isSidebarCollapsed = true }
                     }
                     if options.contains(.focusEditor) {
-                        DispatchQueue.main.async { self.chatView.focusEditor() }
+                        Task { @MainActor in self.chatView.focusEditor() }
                     }
                 }
             }

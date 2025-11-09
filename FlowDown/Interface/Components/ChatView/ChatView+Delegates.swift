@@ -9,7 +9,6 @@ import AlertController
 import ChatClientKit
 import ConfigurableKit
 import RegexBuilder
-import RichEditor
 import ScrubberKit
 import Storage
 import UIKit
@@ -122,7 +121,8 @@ extension ChatView: RichEditorView.Delegate {
         ) {}
 
         #if targetEnvironment(macCatalyst)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            Task { @MainActor in
+                try await Task.sleep(for: .milliseconds(500))
                 self.editor.focus()
             }
         #endif
@@ -136,16 +136,16 @@ extension ChatView: RichEditorView.Delegate {
         )
     }
 
-    func onRichEditorTogglesUpdate(object: RichEditor.RichEditorView.Object) {
+    func onRichEditorTogglesUpdate(object: RichEditorView.Object) {
         _ = object
     }
 
-    func onRichEditorRequestObjectForRestore() -> RichEditor.RichEditorView.Object? {
+    func onRichEditorRequestObjectForRestore() -> RichEditorView.Object? {
         guard let conversationIdentifier else { return nil }
         return ConversationManager.shared.getRichEditorObject(identifier: conversationIdentifier)
     }
 
-    func onRichEditorUpdateObject(object: RichEditor.RichEditorView.Object) {
+    func onRichEditorUpdateObject(object: RichEditorView.Object) {
         guard let conversationIdentifier else { return }
         ConversationManager.shared.setRichEditorObject(identifier: conversationIdentifier, object)
         offloadModelsToSession(modelIdentifier: modelIdentifier())

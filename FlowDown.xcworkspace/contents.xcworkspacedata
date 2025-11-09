@@ -11,9 +11,6 @@
       location = "group:Frameworks/Storage">
    </FileRef>
    <FileRef
-      location = "group:Frameworks/RichEditor">
-   </FileRef>
-   <FileRef
       location = "group:Frameworks/ChatClientKit">
    </FileRef>
    <FileRef

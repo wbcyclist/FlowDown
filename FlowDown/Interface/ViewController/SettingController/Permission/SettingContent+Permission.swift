@@ -219,7 +219,7 @@ extension SettingController.SettingContent {
                 cameraUsage.configure(value: String(localized: "Not Determined"))
                 cameraUsage.setTapBlock { _ in
                     AVCaptureDevice.requestAccess(for: .video) { _ in
-                        DispatchQueue.main.async { self.updateValues() }
+                        Task { @MainActor in self.updateValues() }
                     }
                 }
             case .restricted:
@@ -241,7 +241,7 @@ extension SettingController.SettingContent {
                 microphoneUsage.configure(value: String(localized: "Not Determined"))
                 microphoneUsage.setTapBlock { _ in
                     AVCaptureDevice.requestAccess(for: .audio) { _ in
-                        DispatchQueue.main.async { self.updateValues() }
+                        Task { @MainActor in self.updateValues() }
                     }
                 }
             case .restricted:
@@ -263,7 +263,7 @@ extension SettingController.SettingContent {
                 speechRecognizeUsage.configure(value: String(localized: "Not Determined"))
                 speechRecognizeUsage.setTapBlock { _ in
                     SFSpeechRecognizer.requestAuthorization { _ in
-                        DispatchQueue.main.async { self.updateValues() }
+                        Task { @MainActor in self.updateValues() }
                     }
                 }
             case .restricted:
@@ -287,7 +287,7 @@ extension SettingController.SettingContent {
                 calendarUsage.setTapBlock { [weak self] _ in
                     let eventStore = EKEventStore()
                     eventStore.requestFullAccessToEvents { _, _ in
-                        DispatchQueue.main.async { self?.updateValues() }
+                        Task { @MainActor in self?.updateValues() }
                     }
                 }
             case .restricted:
@@ -317,7 +317,7 @@ extension SettingController.SettingContent {
                 locationUsage.configure(value: String(localized: "Not Determined"))
                 locationUsage.setTapBlock { _ in
                     locationManager.requestWhenInUseAuthorization()
-                    DispatchQueue.main.async { self.updateValues() }
+                    Task { @MainActor in self.updateValues() }
                 }
             case .restricted:
                 locationUsage.configure(value: String(localized: "Restricted"))

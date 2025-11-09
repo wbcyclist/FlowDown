@@ -82,11 +82,27 @@ class TextEditorContentController: UIViewController {
 
     open func done() {
         callback(textView.text)
-        navigationController?.popViewController(animated: true)
+        if let nav = navigationController {
+            if nav.viewControllers.first == self {
+                dismiss(animated: true)
+            } else {
+                nav.popViewController(animated: true)
+            }
+        } else {
+            dismiss(animated: true) {}
+        }
     }
 
     open func cancelDone() {
         textView.text = text // just in case
-        navigationController?.popViewController(animated: true)
+        if let nav = navigationController {
+            if nav.viewControllers.first == self {
+                dismiss(animated: true)
+            } else {
+                nav.popViewController(animated: true)
+            }
+        } else {
+            dismiss(animated: true)
+        }
     }
 }

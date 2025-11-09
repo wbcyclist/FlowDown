@@ -134,10 +134,11 @@ class MTLocationTool: ModelTool, @unchecked Sendable {
         loadingIndicator = indicator
         currentLocale = locale
 
-        DispatchQueue.global().async { [self] in
+        Task.detached { [weak self] in
+            guard let self else { return }
             if CLLocationManager.locationServicesEnabled() {
-                DispatchQueue.main.async { [self] in
-                    guard let manager = locationManager else {
+                await MainActor.run {
+                    guard let manager = self.locationManager else {
                         indicator.dismiss(animated: true) {
                             wrappedCompletion(String(localized: "Could not initialize location services."), false)
                         }
@@ -146,7 +147,7 @@ class MTLocationTool: ModelTool, @unchecked Sendable {
 
                     switch manager.authorizationStatus {
                     case .notDetermined:
-                        locationManager?.requestWhenInUseAuthorization()
+                        self.locationManager?.requestWhenInUseAuthorization()
                         return
 
                     case .denied, .restricted:
@@ -172,10 +173,10 @@ class MTLocationTool: ModelTool, @unchecked Sendable {
                         return
                     }
 
-                    performLocationLookup()
+                    self.performLocationLookup()
                 }
             } else {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     indicator.dismiss(animated: true) {
                         wrappedCompletion(String(localized: "Location services are disabled on this device."), false)
                     }

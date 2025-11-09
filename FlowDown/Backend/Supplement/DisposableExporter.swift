@@ -29,8 +29,7 @@ final class DisposableExporter: NSObject {
         pathExtension: String,
         title: String.LocalizationValue? = nil
     ) {
-        let tempDir = FileManager.default.temporaryDirectory
-            .appendingPathComponent("DisposableResources")
+        let tempDir = disposableResourcesDir
         let tempURL = tempDir
             .appendingPathComponent(name)
             .appendingPathExtension(pathExtension)

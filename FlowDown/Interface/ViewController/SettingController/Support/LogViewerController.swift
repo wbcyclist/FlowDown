@@ -285,7 +285,7 @@ final class LogViewerController: UIViewController, UITableViewDataSource, UITabl
 
     private func scrollToBottom() {
         guard !displayLines.isEmpty else { return }
-        DispatchQueue.main.async { [weak self] in
+        Task { @MainActor [weak self] in
             guard let self else { return }
             let indexPath = IndexPath(row: displayLines.count - 1, section: 0)
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)

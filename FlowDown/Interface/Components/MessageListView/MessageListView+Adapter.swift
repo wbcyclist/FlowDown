@@ -7,7 +7,6 @@ import AlertController
 import ListViewKit
 import Litext
 import MarkdownView
-import RichEditor
 import Storage
 import UIKit
 
@@ -330,7 +329,9 @@ extension MessageListView: ListViewAdapter {
                             }
                         editor.refill(withText: message.document, attachments: attachments)
                         self.session.deleteCurrentAndAfter(messageIdentifier: messageIdentifier)
-                        DispatchQueue.main.async { editor.focus() }
+                        Task { @MainActor in
+                            editor.focus()
+                        }
                     }
                 }(),
                 { () -> UIAction? in

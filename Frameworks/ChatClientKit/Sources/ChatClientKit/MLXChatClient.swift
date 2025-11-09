@@ -186,7 +186,7 @@ open class MLXChatClient: ChatService {
 
                 var regularContentOutputLength = 0
 
-                DispatchQueue.global(qos: .userInitiated).async {
+                Task.detached(priority: .userInitiated) {
                     do {
                         let result = try MLXLMCommon.generate(
                             input: input,
@@ -334,6 +334,9 @@ open class MLXChatClient: ChatService {
                             }
                             let ciImage: CIImage = .init(cgImage: cgImage)
                             images.append(.ciImage(ciImage))
+                        case .audioBase64:
+                            // MLX local client does not support audio input yet.
+                            continue
                         }
                     }
                 }

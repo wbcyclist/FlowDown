@@ -91,12 +91,11 @@ class MCPTool: ModelTool, @unchecked Sendable {
             // isError is optional
             if result.isError == true {
                 Logger.network.errorFile("MCP Tool \(toolInfo.name) returned error: \(result.content)")
+                let text = "MCP Tool returned error: \(result.content.debugDescription)"
                 throw NSError(
-                    domain: "MCPTool.\(toolInfo.name)",
-                    code: 500,
-                    userInfo: [
-                        NSLocalizedDescriptionKey: result.content,
-                    ]
+                    domain: "MCPToolErrorDomain",
+                    code: -1,
+                    userInfo: [NSLocalizedDescriptionKey: text]
                 )
             }
 

@@ -7,7 +7,6 @@
 
 import AlertController
 import Combine
-import RichEditor
 import Storage
 import UIKit
 
@@ -58,10 +57,14 @@ class MainController: UIViewController {
             contentView.contentView.isUserInteractionEnabled = isSidebarCollapsed || allowSidebarPersistence
             #if !targetEnvironment(macCatalyst)
                 if allowSidebarPersistence {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        self.sidebarDragger.showDragger()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            self.sidebarDragger.hideDragger()
+                    Task { [weak self] in
+                        try? await Task.sleep(for: .seconds(0.25))
+                        await MainActor.run {
+                            self?.sidebarDragger.showDragger()
+                        }
+                        try? await Task.sleep(for: .seconds(0.25))
+                        await MainActor.run {
+                            self?.sidebarDragger.hideDragger()
                         }
                     }
                 }
@@ -374,7 +377,8 @@ class MainController: UIViewController {
         message: String.LocalizationValue,
         completion: @escaping () -> Void = {}
     ) {
-        DispatchQueue.main.async {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
             let alert = AlertViewController(
                 title: title,
                 message: message
@@ -383,7 +387,7 @@ class MainController: UIViewController {
                     context.dispose(completion)
                 }
             }
-            self.present(alert, animated: true)
+            present(alert, animated: true)
         }
     }
 

@@ -56,7 +56,7 @@ extension HubModelDownloadController {
         let task = URLSession.shared.dataTask(with: request) { data, _, _ in
             let dicArray = try? JSONSerialization.jsonObject(with: data ?? .init(), options: []) as? [[String: Any]]
             let models = dicArray?.compactMap(RemoteModel.init(dic:))
-            DispatchQueue.main.async { [weak self] in
+            Task { @MainActor [weak self] in
                 guard let self else { return }
                 searchTask = nil
                 completion(models ?? [])

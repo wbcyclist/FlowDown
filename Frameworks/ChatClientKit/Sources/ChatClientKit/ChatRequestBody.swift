@@ -315,15 +315,25 @@ public extension ChatRequestBody.Message {
         /// tokens) and then creates detailed crops using 170 tokens for each 512px x 512px tile.
         case imageURL(URL, detail: ImageDetail? = nil)
 
+        /// Base64 encoded audio content that should be provided to models supporting audio input.
+        /// The format parameter describes the container or codec (e.g. "wav").
+        case audioBase64(String, format: String)
+
         private enum RootKey: String, CodingKey {
             case type
             case text
             case imageURL = "image_url"
+            case audio = "input_audio"
         }
 
         private enum ImageKey: CodingKey {
             case url
             case detail
+        }
+
+        private enum AudioKey: CodingKey {
+            case data
+            case format
         }
 
         public func encode(to encoder: any Encoder) throws {
@@ -341,6 +351,14 @@ public extension ChatRequestBody.Message {
                 if let detail {
                     try nestedContainer.encode(detail, forKey: .detail)
                 }
+            case let .audioBase64(data, format):
+                try container.encode("input_audio", forKey: .type)
+                var nestedContainer = container.nestedContainer(
+                    keyedBy: AudioKey.self,
+                    forKey: .audio
+                )
+                try nestedContainer.encode(data, forKey: .data)
+                try nestedContainer.encode(format, forKey: .format)
             }
         }
     }

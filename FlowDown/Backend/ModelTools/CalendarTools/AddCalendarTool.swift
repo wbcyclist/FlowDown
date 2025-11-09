@@ -96,7 +96,7 @@ class MTAddCalendarTool: ModelTool, @unchecked Sendable {
         try await withCheckedThrowingContinuation { cont in
             let eventStore = EKEventStore()
             eventStore.requestFullAccessToEvents { granted, _ in
-                DispatchQueue.main.async { [weak self] in
+                Task { @MainActor [weak self] in
                     guard let self else {
                         cont.resume(returning: String(localized: "Calendar access denied. Please enable calendar access in Settings."))
                         return
@@ -196,9 +196,7 @@ class MTAddCalendarTool: ModelTool, @unchecked Sendable {
     private func importICSToCalendar(icsContent: String, completion: @escaping (Bool, (any Swift.Error)?) -> Void) {
         let eventStore = EKEventStore()
 
-        let dir = FileManager.default
-            .temporaryDirectory
-            .appendingPathComponent("DisposableResources")
+        let dir = disposableResourcesDir
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true, attributes: nil)
 
         let fileURL = dir.appendingPathComponent(UUID().uuidString)

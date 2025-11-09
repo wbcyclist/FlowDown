@@ -18,7 +18,7 @@ extension UIApplication {
                 open(URL(string: "x-apple.systempreferences:com.apple.preference.security")!)
             }
         } else {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.openSettings()
             }
         }

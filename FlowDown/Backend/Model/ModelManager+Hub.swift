@@ -36,7 +36,9 @@ extension ModelManager {
         var cancellables: [URL] = []
 
         func catchError(_ error: Error) {
-            DispatchQueue.main.async { self.error = error }
+            Task { @MainActor in
+                self.error = error
+            }
         }
 
         func acquiredFileList(_ list: [String]) {
@@ -51,7 +53,7 @@ extension ModelManager {
 
         func progressOnFile(_ name: String, progress: Progress) {
             if progress.totalUnitCount <= 0 { return }
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.currentFilename = name
                 self.progressMap[name] = progress
             }
@@ -59,7 +61,7 @@ extension ModelManager {
 
         func speedUpdate(speed: Int64) {
             let text = ByteCountFormatter.string(fromByteCount: speed, countStyle: .file)
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.speed = String(format: "%@/s", text)
             }
         }
@@ -86,7 +88,9 @@ extension ModelManager {
             newOverall.completedUnitCount = totalCompleted
             newOverall.totalUnitCount = totalUnit
             if newOverall.totalUnitCount <= 0 { return }
-            DispatchQueue.main.async { self.overall = newOverall }
+            Task { @MainActor in
+                self.overall = newOverall
+            }
         }
 
         func saveCancellableURL(_ url: URL) {
@@ -102,9 +106,13 @@ extension ModelManager {
 
         func onInterfaceDisappear() {
             cancellables.forEach { DiggerManager.shared.cancelTask(for: $0) }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.isCancelled = true
-                self.cancellables.forEach { DiggerManager.shared.cancelTask(for: $0) }
+            Task { [weak progress = self] in
+                try? await Task.sleep(for: .seconds(0.5))
+                await MainActor.run { [weak progress] in
+                    guard let progress else { return }
+                    progress.isCancelled = true
+                    progress.cancellables.forEach { DiggerManager.shared.cancelTask(for: $0) }
+                }
             }
         }
 

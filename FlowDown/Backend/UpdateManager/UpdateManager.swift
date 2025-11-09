@@ -58,7 +58,7 @@ class UpdateManager: NSObject {
         }
 
         func completion(package: DistributionChannel.RemotePackage?) {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 if let package {
                     self.presentUpdateAlert(controller: controller, package: package)
                 } else {

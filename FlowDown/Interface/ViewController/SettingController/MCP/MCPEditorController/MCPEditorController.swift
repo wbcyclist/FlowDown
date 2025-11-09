@@ -135,7 +135,8 @@ class MCPEditorController: StackScrollController {
             MCPService.shared.edit(identifier: self.serverId) {
                 $0.update(\.isEnabled, to: value)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            Task { @MainActor in
+                try await Task.sleep(for: .milliseconds(500))
                 // let toggle finish animate
                 self.refreshUI()
             }

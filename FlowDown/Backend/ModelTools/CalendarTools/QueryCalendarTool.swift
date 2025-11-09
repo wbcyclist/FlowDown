@@ -143,7 +143,7 @@ class MTQueryCalendarTool: ModelTool, @unchecked Sendable {
         try await withCheckedThrowingContinuation { cont in
             let eventStore = EKEventStore()
             eventStore.requestFullAccessToEvents { granted, error in
-                DispatchQueue.main.async { [weak self] in
+                Task { @MainActor [weak self] in
                     guard let self else {
                         let errorMessage = error?.localizedDescription ?? "Unknown error"
                         cont.resume(returning: String(localized: "Calendar access denied: \(errorMessage). Please enable calendar access in Settings."))

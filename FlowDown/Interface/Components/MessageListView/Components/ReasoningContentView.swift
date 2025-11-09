@@ -34,7 +34,7 @@ final class ReasoningContentView: MessageListRowView {
     var thinkingTileTapHandler: ((_ newValue: Bool) -> Void)?
 
     var isRevealed: Bool = false {
-        didSet { withAnimation { [self] in
+        didSet { doWithAnimation { [self] in
             thinkingTile.isRevealed = isRevealed
             setNeedsLayout()
             layoutIfNeeded()
@@ -42,7 +42,7 @@ final class ReasoningContentView: MessageListRowView {
     }
 
     var isThinking: Bool = false {
-        didSet { withAnimation { [self] in
+        didSet { doWithAnimation { [self] in
             thinkingTile.isThinking = isThinking
             setNeedsLayout()
             layoutIfNeeded()

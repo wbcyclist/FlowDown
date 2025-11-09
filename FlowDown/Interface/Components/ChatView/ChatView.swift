@@ -8,7 +8,6 @@
 import Combine
 import ConfigurableKit
 import GlyphixTextFx
-import RichEditor
 import SnapKit
 import Storage
 import UIKit
@@ -222,7 +221,7 @@ class ChatView: UIView {
 
         offloadModelsToSession(modelIdentifier: modelIdentifier())
         removeUnusedListViews()
-        DispatchQueue.main.async {
+        Task { @MainActor in
             completion?()
         }
     }

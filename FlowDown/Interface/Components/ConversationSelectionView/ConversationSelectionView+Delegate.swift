@@ -39,7 +39,7 @@ extension ConversationSelectionView: UITableViewDelegate {
 
             ConversationManager.shared.deleteConversation(identifier: identifier)
 
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 if isDeletingSelectedRow,
                    let currentSelectionIndex,
                    let nextIdentifier = (
