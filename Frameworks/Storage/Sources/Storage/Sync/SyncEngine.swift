@@ -364,6 +364,9 @@ public extension SyncEngine {
     /// 强制重新从云端获取
     func reloadDataForcefully() async throws {
         Logger.syncEngine.info("Reload data force fully")
+        if let _syncEngine {
+            await _syncEngine.cancelOperations()
+        }
         SyncEngine.stateSerialization = nil
         initializeSyncEngine()
         try await Task.sleep(nanoseconds: 1_000_000_000)
@@ -828,20 +831,18 @@ private extension SyncEngine {
     ) async {
         var newPendingDatabaseChanges = [CKSyncEngine.PendingDatabaseChange]()
         var removePendingRecordZoneChanges = [CKSyncEngine.PendingRecordZoneChange]()
-        let deviceId = Storage.deviceId
         // 发送成功的，需要更新本地UploadQueue 状态
         if !savedRecords.isEmpty {
             var savedLocalQueueIds: [(queueId: UploadQueue.ID, objectId: String, tableName: String)] = []
             var metadatas: [SyncMetadata] = []
             for savedRecord in savedRecords {
                 guard let (_, tableName) = UploadQueue.parseCKRecordID(savedRecord.recordID.recordName) else { continue }
-                guard let value = savedRecord.sentQueueId, let (localQueueId, objectId, sentDeviceId) = SyncEngine.parseCKRecordSentQueueId(value) else { continue }
-                if sentDeviceId == deviceId {
-                    savedLocalQueueIds.append((localQueueId, objectId, tableName))
-                    metadatas.append(SyncMetadata(record: savedRecord))
-                    // 清理临时文件
-                    savedRecord.clearTemporaryAssets(prefix: SyncEngine.temporaryAssetStorage)
-                }
+                guard let value = savedRecord.sentQueueId, let (localQueueId, objectId, _) = SyncEngine.parseCKRecordSentQueueId(value) else { continue }
+                /// 这里回调成功都是本地发送的结果，不存在远端其他设备的结果，所以无需判断设备ID。
+                savedLocalQueueIds.append((localQueueId, objectId, tableName))
+                metadatas.append(SyncMetadata(record: savedRecord))
+                // 清理临时文件
+                savedRecord.clearTemporaryAssets(prefix: SyncEngine.temporaryAssetStorage)
             }
 
             Logger.syncEngine.info("Sent save success record zone: \(savedLocalQueueIds, privacy: .public)")
@@ -951,6 +952,12 @@ private extension SyncEngine {
 }
 
 private extension SyncEngine {
+    /// 创建发送队列ID
+    /// - Parameters:
+    ///   - queueId: 本地队列ID
+    ///   - objectId: 源数据ID
+    ///   - deviceId: 设备ID，应该始终使用 `Storage.deviceId`
+    /// - Returns: 发送队列ID
     static func makeCKRecordSentQueueId(queueId: UploadQueue.ID, objectId: String, deviceId: String) -> String {
         "\(queueId)\(SyncEngine.CKRecordSentQueueIdSeparator)\(objectId)\(SyncEngine.CKRecordSentQueueIdSeparator)\(deviceId)"
     }
@@ -1195,7 +1202,7 @@ extension SyncEngine: SyncEngineDelegate {
                     CKRecord.ID(recordName: SyncEngine.makeCKRecordSentQueueId(
                         queueId: old.id,
                         objectId: old.objectId,
-                        deviceId: Storage.deviceId
+                        deviceId: deviceId
                     ), zoneID: SyncEngine.zoneID)
                 )
                 staleRecordChanges.append(staleChange)

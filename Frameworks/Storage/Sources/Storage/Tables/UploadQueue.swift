@@ -10,15 +10,23 @@ import WCDBSwift
 
 package final class UploadQueue: Identifiable, Codable, TableNamed, TableCodable {
     package static let tableName: String = "UploadQueue"
-
+    /// 队列ID
     package var id: Int64 = .init()
+    /// 源数据表名
     package var tableName: String = .init()
+    /// 源数据ID
     package var objectId: String = .init()
+    /// 源数据设备ID
     package var deviceId: String = .init()
+    /// 源数据创建时间
     package var creation: Date = .now
+    /// 源数据修改时间
     package var modified: Date = .now
+    /// 变化类型
     package var changes: UploadQueue.Changes = .insert
+    /// 上传状态
     package var state: UploadQueue.State = .pending
+    /// 上传失败次数
     package var failCount: Int = 0
 
     /// 关联的真实对象
