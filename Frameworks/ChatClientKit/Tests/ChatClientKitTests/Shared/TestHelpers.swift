@@ -114,4 +114,31 @@ enum TestHelpers {
 
         return wavData.base64EncodedString()
     }
+
+    /// Resolves a fixture URL relative to the repository root.
+    static func fixtureURL(named name: String, file: StaticString = #filePath) -> URL? {
+        let homeFixture = FileManager.default
+            .homeDirectoryForCurrentUser
+            .appendingPathComponent(".testing")
+            .appendingPathComponent(name, isDirectory: true)
+
+        if FileManager.default.fileExists(atPath: homeFixture.path) {
+            return homeFixture
+        }
+
+        var url = URL(fileURLWithPath: "\(file)")
+        for _ in 0 ..< 5 {
+            url.deleteLastPathComponent()
+        }
+        let repoFixture = url
+            .appendingPathComponent(".test")
+            .appendingPathComponent(name, isDirectory: true)
+
+        if FileManager.default.fileExists(atPath: repoFixture.path) {
+            return repoFixture
+        }
+
+        Issue.record("Fixture \(name) is missing. Checked \(homeFixture.path) and \(repoFixture.path)")
+        return nil
+    }
 }
