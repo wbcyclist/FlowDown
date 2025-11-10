@@ -10,6 +10,7 @@ import CoreFoundation
 import CoreGraphics
 import Foundation
 import ImageIO
+import MLX
 import Testing
 
 /// Helper functions for tests
@@ -140,5 +141,15 @@ enum TestHelpers {
 
         Issue.record("Fixture \(name) is missing. Checked \(homeFixture.path) and \(repoFixture.path)")
         return nil
+    }
+
+    /// Ensures the current host can execute MLX workloads (requires Apple Silicon GPU).
+    /// Returns false and records an issue if the backend is unavailable.
+    static func ensureMLXBackendAvailable() -> Bool {
+        guard !MLX.GPU.deviceInfo().architecture.isEmpty else {
+            Issue.record("MLX GPU backend is not available on this device; skipping MLX integration tests.")
+            return false
+        }
+        return true
     }
 }
