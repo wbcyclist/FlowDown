@@ -64,7 +64,8 @@
         public func chatCompletionRequest(body: ChatRequestBody) async throws -> ChatResponseBody {
             logger.infoFile("starting non-streaming chat completion request with \(body.messages.count) messages")
             let startTime = Date()
-            let choiceMessage: ChoiceMessage = try await streamingChatCompletionRequest(body: body)
+            let resolvedBody = resolve(body: body, stream: false)
+            let choiceMessage: ChoiceMessage = try await streamingChatCompletionRequest(body: resolvedBody)
                 .compactMap { chunk -> ChatCompletionChunk? in
                     switch chunk {
                     case let .chatCompletionChunk(chunk): return chunk
@@ -96,15 +97,42 @@
         public func streamingChatCompletionRequest(
             body: ChatRequestBody
         ) async throws -> AnyAsyncSequence<ChatServiceStreamObject> {
-            logger.infoFile("starting streaming chat completion request with \(body.messages.count) messages, max tokens: \(body.maxCompletionTokens ?? 4096)")
+            let resolvedBody = resolve(body: body, stream: true)
+            logger.infoFile("starting streaming chat completion request with \(resolvedBody.messages.count) messages, max tokens: \(resolvedBody.maxCompletionTokens ?? 4096)")
             let token = MLXChatClientQueue.shared.acquire()
             do {
-                return try await streamingChatCompletionRequestExecute(body: body, token: token)
+                return try await streamingChatCompletionRequestExecute(body: resolvedBody, token: token)
             } catch {
                 logger.errorFile("streaming request failed: \(error.localizedDescription)")
                 MLXChatClientQueue.shared.release(token: token)
                 throw error
             }
+        }
+
+        public func chatCompletionRequest(
+            _ request: some ChatRequestConvertible
+        ) async throws -> ChatResponseBody {
+            try await chatCompletionRequest(body: request.asChatRequestBody())
+        }
+
+        public func streamingChatCompletionRequest(
+            _ request: some ChatRequestConvertible
+        ) async throws -> AnyAsyncSequence<ChatServiceStreamObject> {
+            try await streamingChatCompletionRequest(body: request.asChatRequestBody())
+        }
+
+        /// Executes a local MLX completion using the Swift request DSL.
+        public func chatCompletion(
+            @ChatRequestBuilder _ builder: () -> [ChatRequest.BuildComponent]
+        ) async throws -> ChatResponseBody {
+            try await chatCompletionRequest(ChatRequest(builder))
+        }
+
+        /// Streams a local MLX completion using the Swift request DSL.
+        public func streamingChatCompletion(
+            @ChatRequestBuilder _ builder: () -> [ChatRequest.BuildComponent]
+        ) async throws -> AnyAsyncSequence<ChatServiceStreamObject> {
+            try await streamingChatCompletionRequest(ChatRequest(builder))
         }
 
         // MARK: - PRIVATE
@@ -257,6 +285,13 @@
                     }
                 }
             }.eraseToAnyAsyncSequence()
+        }
+
+        private func resolve(body: ChatRequestBody, stream: Bool) -> ChatRequestBody {
+            var body = body
+            body.stream = stream
+            body.streamOptions = stream ? body.streamOptions : nil
+            return body
         }
 
         private func userInputContent(for messageContent: ChatRequestBody.Message.MessageContent<String, [String]>) -> String {

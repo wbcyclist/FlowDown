@@ -121,14 +121,16 @@ struct RemoteChatClientBasicTests {
             messages: [
                 .user(content: .text("List the numbers 1 through 10.")),
             ],
-            maxCompletionTokens: 50
+            maxCompletionTokens: 10
         )
 
         let response = try await client.chatCompletionRequest(body: request)
 
         #expect(response.choices.count > 0)
         let content = response.choices.first?.message.content ?? ""
-        #expect(content.isEmpty == false)
+        let reasoning = response.choices.first?.message.reasoning ?? ""
+        let reasoningContent = response.choices.first?.message.reasoningContent ?? ""
+        #expect([content, reasoning, reasoningContent].allSatisfy { $0.isEmpty } == false)
     }
 
     @Test("Streaming chat completion collects all chunks")

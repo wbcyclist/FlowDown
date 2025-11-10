@@ -79,6 +79,65 @@ struct RemoteChatClientUnitTests {
         #expect(bodyJSON["foo"] as? String == "bar")
     }
 
+    @Test("Chat completion builder convenience forwards through request DSL")
+    func chatCompletion_builderForwardsThroughDSL() async throws {
+        let responseJSON: [String: Any] = [
+            "choices": [
+                [
+                    "message": [
+                        "role": "assistant",
+                        "content": "Answer",
+                    ],
+                ],
+            ],
+            "created": 456,
+            "model": "gpt-test",
+        ]
+        let responseData = try JSONSerialization.data(withJSONObject: responseJSON)
+        let response = URLResponse(
+            url: URL(string: "https://example.com/v1/chat/completions")!,
+            mimeType: "application/json",
+            expectedContentLength: responseData.count,
+            textEncodingName: nil
+        )
+        let session = MockURLSession(result: .success((responseData, response)))
+
+        let dependencies = RemoteChatClientDependencies(
+            session: session,
+            eventSourceFactory: DefaultEventSourceFactory(),
+            responseDecoderFactory: { JSONDecoderWrapper() },
+            chunkDecoderFactory: { JSONDecoderWrapper() },
+            errorExtractor: RemoteChatErrorExtractor(),
+            reasoningParser: ReasoningContentParser()
+        )
+
+        let client = RemoteChatClient(
+            model: "gpt-test",
+            baseURL: "https://example.com",
+            path: "/v1/chat/completions",
+            apiKey: TestHelpers.requireAPIKey(),
+            dependencies: dependencies
+        )
+
+        let result = try await client.chatCompletion {
+            ChatRequest.temperature(0.3)
+            ChatRequest.messages {
+                ChatRequest.Message.system(content: .text("  sys "))
+                ChatRequest.Message.user(content: .text(" hi "))
+            }
+        }
+
+        #expect(result.model == "gpt-test")
+        #expect(result.choices.first?.message.content == "Answer")
+
+        let madeRequest = try #require(session.lastRequest)
+        let bodyData = try #require(madeRequest.httpBody)
+        let bodyJSON = try #require(JSONSerialization.jsonObject(with: bodyData) as? [String: Any])
+        #expect(bodyJSON["model"] as? String == "gpt-test")
+        #expect(bodyJSON["temperature"] as? Double == 0.3)
+        #expect(bodyJSON["messages"] is [[String: Any]])
+    }
+
     @Test("Chat completion request when server returns error throws decoded error")
     func chatCompletionRequest_whenServerReturnsError_throwsDecodedError() async throws {
         let errorJSON: [String: Any] = [
