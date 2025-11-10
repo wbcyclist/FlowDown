@@ -10,19 +10,21 @@ import Foundation
 import FoundationModels
 import GPTEncoder
 import MLX
-import MLXLLM
-import MLXLMCommon
-import MLXVLM
 import Storage
+import UIKit
 
 extension ModelManager {
     // - imageProcessingFailure : "height: 1 must be larger than factor: 28"
-    static let testImage: CIImage = .init(
-        cgImage: UIImage(
-            color: .accent,
-            size: .init(width: 64, height: 64)
-        ).cgImage!
+    static let testImage: UIImage = .init(
+        color: .accent,
+        size: .init(width: 64, height: 64)
     )
+
+    private static let testImageDataURL: URL? = {
+        guard let data = testImage.pngData() else { return nil }
+        let base64 = data.base64EncodedString()
+        return URL(string: "data:image/png;base64,\(base64)")
+    }()
 
     func testLocalModel(_ model: LocalModel, completion: @escaping (Result<Void, Error>) -> Void) {
         guard MLX.GPU.isSupported else {
@@ -31,48 +33,40 @@ extension ModelManager {
             ])))
             return
         }
-        let task = Task.detached {
+        Task.detached {
             assert(!Thread.isMainThread)
-            let config = ModelConfiguration(directory: ModelManager.shared.modelContent(for: model))
-            let container: ModelContainer? =
-                if model.capabilities.contains(.visual) {
-                    try await VLMModelFactory.shared.loadContainer(configuration: config)
-                } else {
-                    try await LLMModelFactory.shared.loadContainer(configuration: config)
-                }
-            return try await container?.perform { context in
-                let input = try await context.processor.prepare(
-                    input: .init(
+            let token = MLXChatClientQueue.shared.acquire()
+            defer { MLXChatClientQueue.shared.release(token: token) }
+
+            do {
+                let client = MLXChatClient(url: ModelManager.shared.modelContent(for: model))
+                let userContent: ChatRequestBody.Message.MessageContent<String, [ChatRequestBody.Message.ContentPart]> = {
+                    guard model.capabilities.contains(.visual),
+                          let imageURL = Self.testImageDataURL
+                    else {
+                        return .text("YES or NO")
+                    }
+                    return .parts([
+                        .text("YES or NO"),
+                        .imageURL(imageURL, detail: .low),
+                    ])
+                }()
+
+                let response = try await client.chatCompletionRequest(
+                    body: .init(
                         messages: [
-                            [
-                                "role": "system",
-                                "content": "Reply YES to every query.",
-                            ],
-                            [
-                                "role": "user",
-                                "content": "YES or NO",
-                            ],
+                            .system(content: .text("Reply YES to every query.")),
+                            .user(content: userContent),
                         ],
-                        images: model.capabilities.contains(.visual) ? [.ciImage(Self.testImage)] : []
+                        maxCompletionTokens: 32,
+                        temperature: 0
                     )
                 )
-                let result: GenerateResult = try MLXLMCommon.generate(
-                    input: input,
-                    parameters: GenerateParameters(temperature: 0),
-                    context: context
-                ) { _ in .stop }
-                return result.output
-            }
-        }
-        Task.detached {
-            let token = MLXChatClientQueue.shared.acquire()
-            do {
-                let text = try await task.value
-                MLXChatClientQueue.shared.release(token: token)
-                if let text, !text.isEmpty {
-                    Logger.model.debugFile("model \(model.model_identifier) generates output for test case: \(text)")
-                    completion(.success(()))
-                } else {
+
+                let text = response.choices.first?.message.content ?? ""
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+
+                if text.isEmpty {
                     completion(
                         .failure(
                             NSError(
@@ -82,74 +76,13 @@ extension ModelManager {
                             )
                         )
                     )
+                } else {
+                    Logger.model.debugFile("model \(model.model_identifier) generates output for test case: \(text)")
+                    completion(.success(()))
                 }
             } catch {
-                MLXChatClientQueue.shared.release(token: token)
-                if let error = error as? ModelFactoryError {
-                    switch error {
-                    case .unsupportedModelType:
-                        completion(
-                            .failure(
-                                NSError(
-                                    domain: "Model",
-                                    code: -1,
-                                    userInfo: [NSLocalizedDescriptionKey: String(localized: "Unsupported model type.")]
-                                )
-                            )
-                        )
-                    case .unsupportedProcessorType:
-                        completion(
-                            .failure(
-                                NSError(
-                                    domain: "Model",
-                                    code: -1,
-                                    userInfo: [NSLocalizedDescriptionKey: String(localized: "Unsupported processor type.")]
-                                )
-                            )
-                        )
-                    case .noModelFactoryAvailable:
-                        completion(
-                            .failure(
-                                NSError(
-                                    domain: "Model",
-                                    code: -1,
-                                    userInfo: [NSLocalizedDescriptionKey: String(localized: "Unsupported model type.")]
-                                )
-                            )
-                        )
-                    case .configurationDecodingError:
-                        completion(
-                            .failure(
-                                NSError(
-                                    domain: "Model",
-                                    code: -1,
-                                    userInfo: [NSLocalizedDescriptionKey: String(localized: "Unable to decode configuration.")]
-                                )
-                            )
-                        )
-                    }
-                } else if let error = error as? VLMError {
-                    Logger.model.errorFile("VLM failed to inference: \(error)")
-                    completion(
-                        .failure(
-                            NSError(
-                                domain: "Model",
-                                code: -1,
-                                userInfo: [NSLocalizedDescriptionKey: String(localized: "Unsupported.")]
-                            )
-                        )
-                    )
-                } else {
-                    completion(
-                        .failure(
-                            NSError(
-                                domain: "Model",
-                                code: -1,
-                                userInfo: [NSLocalizedDescriptionKey: String(format: String(localized: "Failed to load model: %@"), error.localizedDescription)]
-                            )
-                        )
-                    )
-                }
+                Logger.model.errorFile("local model test failed: \(error.localizedDescription)")
+                completion(.failure(error))
             }
         }
     }

@@ -5860,6 +5860,7 @@
       }
     },
     "Failed to load model: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -14718,6 +14719,7 @@
       }
     },
     "Unable to decode configuration." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -15198,6 +15200,7 @@
       }
     },
     "Unsupported model type." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -15214,6 +15217,7 @@
       }
     },
     "Unsupported processor type." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -15230,6 +15234,7 @@
       }
     },
     "Unsupported." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
