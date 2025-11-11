@@ -74,6 +74,7 @@ final class ColorfulShadowView: UIView {
         gradientView.noise = 0
         gradientView.bias /= 1000
         gradientView.speed = 1
+        gradientView.frameLimit = 30
         addSubview(gradientView)
         maskLayer.contentsScale = layer.contentsScale
         gradientView.layer.mask = maskLayer
