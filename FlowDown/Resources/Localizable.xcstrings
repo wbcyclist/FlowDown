@@ -14690,18 +14690,18 @@
         }
       }
     },
-    "Tool call for %@ running." : {
+    "Tool call for %@ running" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tool call for %@ running."
+            "value" : "Tool call for %@ running"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开始调用工具 %@ 。"
+            "value" : "开始调用工具 %@"
           }
         }
       }
