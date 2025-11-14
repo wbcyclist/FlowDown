@@ -418,7 +418,7 @@ class CloudModelEditorController: StackScrollController {
         // additional header
         let headerEditorView = ConfigurableInfoView().setTapBlock { view in
             guard let model = ModelManager.shared.cloudModel(identifier: model?.id) else { return }
-            let jsonData = try? JSONSerialization.data(withJSONObject: model.headers, options: .prettyPrinted)
+            let jsonData = try? JSONSerialization.data(withJSONObject: model.headers, options: [.prettyPrinted, .sortedKeys])
             var text = String(data: jsonData ?? Data(), encoding: .utf8) ?? ""
             if text.isEmpty { text = "{}" }
             let textEditor = JsonStringMapEditorController(text: text)
@@ -795,7 +795,7 @@ class CloudModelEditorController: StackScrollController {
             return nil
         }
         guard JSONSerialization.isValidJSONObject(jsonObject) else { return nil }
-        guard let formattedData = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted]) else {
+        guard let formattedData = try? JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted, .sortedKeys]) else {
             return nil
         }
         return String(data: formattedData, encoding: .utf8)

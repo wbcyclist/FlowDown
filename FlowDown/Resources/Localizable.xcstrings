@@ -11337,7 +11337,20 @@
       }
     },
     "Result" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Result"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "结果"
+          }
+        }
+      }
     },
     "Result Limit" : {
       "localizations" : {
@@ -15128,7 +15141,20 @@
       }
     },
     "Unable to decode tool parameters." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to decode tool parameters."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法解码工具调用的参数。"
+          }
+        }
+      }
     },
     "Unable to Determine" : {
       "localizations" : {
@@ -15227,7 +15253,20 @@
       }
     },
     "Unable to locate the tool message in this session." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to locate the tool message in this session."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法确定工具调用在会话中的位置。"
+          }
+        }
+      }
     },
     "Unable to open link." : {
       "localizations" : {
@@ -16174,7 +16213,20 @@
       }
     },
     "View Details" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Details"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看详情"
+          }
+        }
+      }
     },
     "View Logs" : {
       "localizations" : {
