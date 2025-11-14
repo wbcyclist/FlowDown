@@ -221,7 +221,8 @@ extension SettingController.SettingContent {
                     guard let self else { return [] }
                     return ModelManager.shared.buildModelSelectionMenu(
                         currentSelection: ModelManager.ModelIdentifier.defaultModelForConversation,
-                        allowSelectionWithNone: true
+                        allowSelectionWithNone: true,
+                        includeQuickActions: false
                     ) { [weak self] identifier in
                         ModelManager.ModelIdentifier.defaultModelForConversation = identifier
                         self?.updateDefaultModelinfoFile()
@@ -241,7 +242,8 @@ extension SettingController.SettingContent {
                     guard let self else { return [] }
                     return ModelManager.shared.buildModelSelectionMenu(
                         currentSelection: ModelManager.ModelIdentifier.defaultModelForConversation,
-                        allowSelectionWithNone: true
+                        allowSelectionWithNone: true,
+                        includeQuickActions: false
                     ) { [weak self] identifier in
                         ModelManager.ModelIdentifier.defaultModelForConversation = identifier
                         self?.updateDefaultModelinfoFile()
@@ -283,7 +285,8 @@ extension SettingController.SettingContent {
                 }
                 return ModelManager.shared.buildModelSelectionMenu(
                     currentSelection: ModelManager.ModelIdentifier.storedAuxiliaryTaskModel,
-                    allowSelectionWithNone: true
+                    allowSelectionWithNone: true,
+                    includeQuickActions: false
                 ) { [weak self] identifier in
                     ModelManager.ModelIdentifier.defaultModelForAuxiliaryTask = identifier
                     self?.updateDefaultModelinfoFile()
@@ -317,7 +320,8 @@ extension SettingController.SettingContent {
                 return ModelManager.shared.buildModelSelectionMenu(
                     currentSelection: ModelManager.ModelIdentifier.defaultModelForAuxiliaryVisualTask,
                     requiresCapabilities: [.visual],
-                    allowSelectionWithNone: true
+                    allowSelectionWithNone: true,
+                    includeQuickActions: false
                 ) { [weak self] identifier in
                     ModelManager.ModelIdentifier.defaultModelForAuxiliaryVisualTask = identifier
                     self?.updateDefaultModelinfoFile()

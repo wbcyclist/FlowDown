@@ -30,7 +30,7 @@ extension ModelManager {
         requiresCapabilities: Set<ModelCapabilities> = [],
         allowSelectionWithNone: Bool = false,
         onCompletion: @escaping (ModelIdentifier) -> Void,
-        includeQuickActions: Bool = true
+        includeQuickActions: Bool
     ) -> [UIMenuElement] {
         let localModels = ModelManager.shared.localModels.value.filter {
             !$0.model_identifier.isEmpty
