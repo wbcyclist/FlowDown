@@ -293,51 +293,40 @@ extension ChatView: RichEditorView.Delegate {
         ))
 
         if !mcpServers.isEmpty {
-            let mcpServersMenu = UIMenu(
-                title: String(localized: "MCP Servers"),
-                options: mcpServers.count < 5 ? [.displayInline] : [],
-                children: mcpServers.map { server in
-                    let name = server.name.isEmpty
-                        ? URL(string: server.endpoint)?.host ?? String(localized: "Unknown Server")
-                        : server.name
-                    return UIAction(
-                        title: name,
-                        image: UIImage(systemName: "server.rack"),
-                        attributes: [.keepsMenuPresented],
-                        state: server.isEnabled ? .on : .off
-                    ) { _ in
-                        MCPService.shared.edit(identifier: server.id) {
-                            $0.update(\.isEnabled, to: !$0.isEnabled)
-                        }
-                        requestReload(isEnabled)
+            var mcpActions: [UIMenuElement] = mcpServers.map { server in
+                let name = server.name.isEmpty
+                    ? URL(string: server.endpoint)?.host ?? String(localized: "Unknown Server")
+                    : server.name
+                return UIAction(
+                    title: name,
+                    image: UIImage(systemName: "server.rack"),
+                    attributes: [.keepsMenuPresented],
+                    state: server.isEnabled ? .on : .off
+                ) { _ in
+                    MCPService.shared.edit(identifier: server.id) {
+                        $0.update(\.isEnabled, to: !$0.isEnabled)
                     }
+                    requestReload(isEnabled)
                 }
-            )
-            toolMenuItems.append(mcpServersMenu)
-        }
+            }
 
-        let settingsMenu = UIMenu(
-            title: String(localized: "Shortcuts"),
-            children: [
+            mcpActions.append(
                 UIAction(
-                    title: String(localized: "MCP Settings"),
-                    image: UIImage(systemName: "server.rack")
+                    title: String(localized: "Settings"),
+                    image: UIImage(systemName: "gear")
                 ) { [weak self] _ in
                     SettingController.setNextEntryPage(.mcp)
                     let settingController = SettingController()
                     self?.parentViewController?.present(settingController, animated: true)
-                },
-                UIAction(
-                    title: String(localized: "Tools Settings"),
-                    image: UIImage(systemName: "wrench.and.screwdriver")
-                ) { [weak self] _ in
-                    SettingController.setNextEntryPage(.tools)
-                    let settingController = SettingController()
-                    self?.parentViewController?.present(settingController, animated: true)
-                },
-            ]
-        )
-        toolMenuItems.append(settingsMenu)
+                }
+            )
+
+            toolMenuItems.append(UIMenu(
+                title: String(localized: "MCP Servers"),
+                options: mcpServers.count < 5 ? [.displayInline] : [],
+                children: mcpActions
+            ))
+        }
 
         return toolMenuItems
     }

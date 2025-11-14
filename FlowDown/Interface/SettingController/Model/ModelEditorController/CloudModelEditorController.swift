@@ -875,7 +875,7 @@ private extension CloudModelEditorController {
             ))
 
             let samplingActions: [UIAction] = [
-                UIAction(title: String(localized: "Set \("temperature")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("temperature")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      This setting influences the variety in the model's responses. Lower values lead to more predictable and typical responses, while higher values encourage more diverse and less common responses. At 0, the model always gives the same response for a given input.
                      Optional, float, 0.0 to 2.0
@@ -883,7 +883,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["temperature"] = Double(ModelManager.shared.temperature) }
                 },
-                UIAction(title: String(localized: "Set \("top_p")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("top_p")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      This setting limits the model's choices to a percentage of likely tokens: only the top tokens whose probabilities add up to P. A lower value makes the model's responses more predictable, while the default setting allows for a full range of token choices. Think of it like a dynamic Top-K.
                      Optional, float, 0.0 to 1.0
@@ -891,7 +891,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["top_p"] = 0.9 }
                 },
-                UIAction(title: String(localized: "Set \("top_k")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("top_k")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      This limits the model's choice of tokens at each step, making it choose from a smaller set. A value of 1 means the model will always pick the most likely next token, leading to predictable results. By default this setting is disabled, making the model to consider all choices.
                      Optional, integer, 0 or above
@@ -899,7 +899,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["top_k"] = 40 }
                 },
-                UIAction(title: String(localized: "Set \("top_a")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("top_a")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      Consider only the top tokens with "sufficiently high" probabilities based on the probability of the most likely token. Think of it like a dynamic Top-P.
                      A lower Top-A value focuses the choices based on the highest probability token but with a narrower scope. A higher Top-A value does not necessarily affect the creativity of the output, but rather refines the filtering process based on the maximum probability.
@@ -908,7 +908,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["top_a"] = 0.0 }
                 },
-                UIAction(title: String(localized: "Set \("presence_penalty")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("presence_penalty")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      Adjusts how often the model repeats specific tokens already used in the input. Higher values make such repetition less likely, while negative values do the opposite. Token penalty does not scale with the number of occurrences. Negative values will encourage token reuse.
                      Optional, float, -2.0 to 2.0
@@ -916,7 +916,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["presence_penalty"] = 0.0 }
                 },
-                UIAction(title: String(localized: "Set \("frequency_penalty")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("frequency_penalty")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      This setting aims to control the repetition of tokens based on how often they appear in the input. It tries to use less frequently those tokens that appear more in the input, proportional to how frequently they occur. Token penalty scales with the number of occurrences. Negative values will encourage token reuse.
                      Optional, float, -2.0 to 2.0
@@ -924,7 +924,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["frequency_penalty"] = 0.5 }
                 },
-                UIAction(title: String(localized: "Set \("repetition_penalty")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("repetition_penalty")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      Helps to reduce the repetition of tokens from the input. A higher value makes the model less likely to repeat tokens, but too high a value can make the output less coherent (often with run-on sentences that lack small words).
                      Optional, float, 0.0 to 2.0
@@ -932,7 +932,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["repetition_penalty"] = 1.0 }
                 },
-                UIAction(title: String(localized: "Set \("min_p")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("min_p")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      Represents the minimum probability for a token to be considered, relative to the probability of the most likely token. (The value changes depending on the confidence level of the most probable token.)
                      If your Min-P is set to 0.1, that means it will only allow for tokens that are at least 1/10th as probable as the best possible option.
@@ -941,7 +941,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["min_p"] = 0.0 }
                 },
-                UIAction(title: String(localized: "Set \("max_tokens")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("max_tokens")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      This sets the upper limit for the number of tokens the model can generate in response. It won't produce more than this limit.
                      The maximum value is the context length minus the prompt length.
@@ -949,7 +949,7 @@ private extension CloudModelEditorController {
                      */
                     controller.updateValue { $0["max_tokens"] = 4096 }
                 },
-                UIAction(title: String(localized: "Set \("seed")"), image: UIImage(systemName: "sparkles")) { _ in
+                UIAction(title: String(localized: "Add \("seed")"), image: UIImage(systemName: "sparkles")) { _ in
                     /*
                      If specified, the inferencing will sample deterministically, such that repeated requests with the same seed and parameters should return the same result.
                      Determinism is not guaranteed for some models.

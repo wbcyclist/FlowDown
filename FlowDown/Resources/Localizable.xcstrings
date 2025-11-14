@@ -425,6 +425,22 @@
         }
       }
     },
+    "Add %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加 %@"
+          }
+        }
+      }
+    },
     "Add Model" : {
       "localizations" : {
         "en" : {
@@ -8404,22 +8420,6 @@
         }
       }
     },
-    "MCP Settings" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MCP Settings"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MCP 设置"
-          }
-        }
-      }
-    },
     "MCP Tool" : {
       "localizations" : {
         "en" : {
@@ -12072,22 +12072,6 @@
         }
       }
     },
-    "Set %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Set %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置为 %@"
-          }
-        }
-      }
-    },
     "Set %@ to %@" : {
       "localizations" : {
         "en" : {
@@ -14878,22 +14862,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "来自成功连接的 MCP 服务器所提供的工具"
-          }
-        }
-      }
-    },
-    "Tools Settings" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tools Settings"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工具设置"
           }
         }
       }
