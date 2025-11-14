@@ -191,7 +191,8 @@ extension ChatView: RichEditorView.Delegate {
             identifier: conversationIdentifier
         )?.modelId
         return ModelManager.shared.buildModelSelectionMenu(
-            currentSelection: modelIdentifier
+            currentSelection: modelIdentifier,
+            includeQuickActions: true
         ) { modelIdentifier in
             ConversationManager.shared.editConversation(identifier: conversationIdentifier) {
                 $0.update(\.modelId, to: modelIdentifier)
